@@ -36,6 +36,4 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         return profileBinding.root
     }
-
-
 }
