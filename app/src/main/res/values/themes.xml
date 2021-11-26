@@ -12,6 +12,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="android:fontFamily">@font/outfit</item>
+        <item name="android:fontFamily">@font/montserratregular</item>
+        <item name="android:windowFullscreen">true</item>
+
     </style>
 </resources>
