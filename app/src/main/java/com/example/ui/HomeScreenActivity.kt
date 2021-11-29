@@ -29,12 +29,7 @@ class HomeScreenActivity : AppCompatActivity() {
             }.attach()
         }
 
-        homeScreenBinding.logout.setOnClickListener {
-            sharedPreference.clearPreference()
-            val intent= Intent(this,MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+
 
     }
 }

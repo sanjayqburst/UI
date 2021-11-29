@@ -20,4 +20,7 @@
     <string name="fill_credentials">Enter username and password</string>
     <string name="user_authentication">Username and password do not match</string>
     <string name="logout">Logout</string>
+    <string name="profile_image">profile Image</string>
+    <string name="news">  News</string>
+    <string name="favourite">  Favourite</string>
 </resources>

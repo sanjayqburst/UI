@@ -33,6 +33,11 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
             requireActivity().finish()
         }
+
+        val userName=sharedPreference.getValue("username")
+        profileBinding.profileUsername.text=userName
+
+
         // Inflate the layout for this fragment
         return profileBinding.root
     }
