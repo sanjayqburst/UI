@@ -1,4 +1,4 @@
-package com.example.ui.accounts
+package com.example.newsapp.ui.accounts
 
 import android.content.Context
 import android.content.SharedPreferences

@@ -1,4 +1,4 @@
-package com.example.ui.fragments
+package com.example.newsapp.ui.accounts
 
 import android.app.Activity
 import android.content.Context
@@ -8,10 +8,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.ui.HomeScreenActivity
-import com.example.ui.R
-import com.example.ui.accounts.UserSharedPreference
-import com.example.ui.databinding.FragmentWelcomeBinding
+import com.example.newsapp.ui.homescreen.HomeScreenActivity
+import com.example.newsapp.R
+import com.example.newsapp.databinding.FragmentWelcomeBinding
 
 class WelcomeFragment : Fragment() {
     private lateinit var welcomeBinding:FragmentWelcomeBinding

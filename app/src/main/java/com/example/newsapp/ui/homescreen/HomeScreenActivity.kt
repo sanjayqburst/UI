@@ -1,19 +1,19 @@
-package com.example.ui
+package com.example.newsapp.ui.homescreen
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.content.res.AppCompatResources
-import com.example.ui.accounts.UserSharedPreference
-import com.example.ui.adapters.ViewPagerAdapter
-import com.example.ui.databinding.ActivityHomeScreenBinding
+import com.example.newsapp.R
+import com.example.newsapp.ui.accounts.UserSharedPreference
+import com.example.newsapp.adapters.ViewPagerAdapter
+import com.example.newsapp.databinding.ActivityHomeScreenBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeScreenActivity : AppCompatActivity() {
     private lateinit var homeScreenBinding: ActivityHomeScreenBinding
     override fun onCreate(savedInstanceState: Bundle?) {
-        val sharedPreference=UserSharedPreference(this)
-        val tabIcons= arrayOf(R.drawable.news,R.drawable.favorite,R.drawable.profile)
+        val sharedPreference= UserSharedPreference(this)
+        val tabIcons= arrayOf(R.drawable.news, R.drawable.favorite, R.drawable.profile)
 
         super.onCreate(savedInstanceState)
 

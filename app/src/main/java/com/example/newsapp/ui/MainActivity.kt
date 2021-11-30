@@ -1,8 +1,8 @@
-package com.example.ui
+package com.example.newsapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.ui.databinding.ActivityMainBinding
+import com.example.newsapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mainBinding: ActivityMainBinding

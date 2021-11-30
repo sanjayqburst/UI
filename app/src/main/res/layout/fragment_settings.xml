@@ -1,86 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.ProfileFragment">
+    tools:context=".ui.settings.SettingsFragment">
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/profile_card_img"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
-        app:cardBackgroundColor="@color/color10"
-        android:elevation="15dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginTop="50dp"
+        android:elevation="15dp"
+        app:cardBackgroundColor="@color/color10"
         app:cardCornerRadius="85dp"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            app:cardCornerRadius="75dp"
-            android:elevation="12dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:layout_gravity="center"
+            android:elevation="12dp"
+            app:cardCornerRadius="75dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
             <ImageView
-                android:contentDescription="@string/profile_image"
-                android:src="@drawable/img_profile"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:id="@+id/profile_image"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_gravity="center"
-                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/profile_image"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_profile"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:scaleType="centerCrop"
-                android:id="@+id/profile_image"/>
+                app:layout_constraintTop_toTopOf="parent" />
         </com.google.android.material.card.MaterialCardView>
     </com.google.android.material.card.MaterialCardView>
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/profile_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/profile_card_img"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/montserratmedium"
+        android:text="@string/profile_image"
+        android:textSize="22sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="@string/profile_image"
-        android:layout_marginTop="20dp"
-        app:textAllCaps="true"
-        android:id="@+id/profile_username"
-        android:textSize="22sp"
-        android:fontFamily="@font/montserratmedium"/>
+        app:layout_constraintTop_toBottomOf="@id/profile_card_img"
+        app:textAllCaps="true" />
 
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/profile_news_btn"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/profile_news_button"
+        android:layout_marginTop="50dp"
+        android:elevation="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_username">
+        app:layout_constraintTop_toBottomOf="@id/profile_username">
         <TextView
+            android:id="@+id/profile_news_btn_text"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             android:drawablePadding="10dp"
-            android:layout_marginTop="50dp"
             android:paddingBottom="0dp"
             android:text="@string/news"
             app:drawableLeftCompat="@drawable/news"
             app:drawableTint="@color/color3" />
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:elevation="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_news_btn">
         <TextView
+            android:id="@+id/profile_fav_btn"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
+            android:layout_height="60dp"
             android:drawablePadding="10dp"
-            android:layout_height="40dp"
             android:paddingBottom="0dp"
             android:text="@string/favourite"
             app:drawableLeftCompat="@drawable/favorite"
             app:drawableTint="@color/color3" />
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
 
 
 

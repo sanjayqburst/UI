@@ -1,4 +1,4 @@
-package com.example.ui.accounts
+package com.example.newsapp.ui.accounts
 
 class UserValidate(private val userName:String?, private val passWord:String?) {
     fun checkIsEmpty():Boolean{

@@ -1,4 +1,4 @@
-package com.example.ui.fragments
+package com.example.newsapp.ui.accounts
 
 import android.app.Activity
 import android.content.Context
@@ -9,11 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.example.ui.HomeScreenActivity
-import com.example.ui.R
-import com.example.ui.accounts.UserSharedPreference
-import com.example.ui.accounts.UserValidate
-import com.example.ui.databinding.FragmentLoginBinding
+import com.example.newsapp.ui.homescreen.HomeScreenActivity
+import com.example.newsapp.R
+import com.example.newsapp.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
     private lateinit var loginFragmentBinding:FragmentLoginBinding
@@ -35,13 +33,13 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val sharedPreference=UserSharedPreference(requireContext())
+        val sharedPreference= UserSharedPreference(requireContext())
         loginFragmentBinding.apply {
             if (sharedPreference.getValue("username")!="username"){
-                moveActivity(requireContext(),HomeScreenActivity(),sharedPreference.getValue("username"))
+                moveActivity(requireContext(), HomeScreenActivity(),sharedPreference.getValue("username"))
             }else{
                 loginLoginBtn.setOnClickListener {
-                    val user=UserValidate(loginUsernameValue.text.toString(),loginPasswordValue.text.toString())
+                    val user= UserValidate(loginUsernameValue.text.toString(),loginPasswordValue.text.toString())
                     if (!user.checkIsEmpty()){
                         if (user.validateLogin()){
                             sharedPreference.save("username",loginUsernameValue.text.toString())
@@ -57,7 +55,13 @@ class LoginFragment : Fragment() {
 
 
             }
+            loginSignupBtn.setOnClickListener {
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,
+                    SignupFragment()
+                ).commit()
+            }
         }
+
     }
 
 
