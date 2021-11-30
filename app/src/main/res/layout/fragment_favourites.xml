@@ -5,12 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.favorites.FavouritesFragment">
+<TextView
+    android:id="@+id/favorite_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_goneMarginTop="10sp"
+    android:textStyle="bold"
+    android:letterSpacing="0.1"
+    android:textSize="30sp"
+    android:textColor="@color/black"
+    android:fontFamily="@font/ptserifregular"
+    android:paddingStart="10dp"
+    android:text="@string/favorites"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    tools:ignore="RtlSymmetry" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="50sp"
         android:id="@+id/favorite_card_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/favorite_title"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 

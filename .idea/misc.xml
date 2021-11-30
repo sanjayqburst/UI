@@ -5,10 +5,11 @@
       <map>
         <entry key="app/src/main/res/drawable/gradient.xml" value="0.18541666666666667" />
         <entry key="app/src/main/res/drawable/news.xml" value="0.18541666666666667" />
+        <entry key="app/src/main/res/layout/activity_display_news.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_home_screen.xml" value="0.15416666666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.16" />
         <entry key="app/src/main/res/layout/card_layout.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_favourites.xml" value="0.16927083333333334" />
+        <entry key="app/src/main/res/layout/fragment_favourites.xml" value="0.21" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_news.xml" value="0.10126582278481013" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.16927083333333334" />

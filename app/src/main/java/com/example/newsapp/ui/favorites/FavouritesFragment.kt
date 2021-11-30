@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.newsapp.R
+import com.example.newsapp.adapters.FavoriteRecyclerAdapter
 import com.example.newsapp.databinding.FragmentFavouritesBinding
+import com.example.newsapp.model.dataArray
 
 
 class FavouritesFragment : Fragment() {
@@ -23,8 +25,18 @@ class FavouritesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        favouritesBinding= FragmentFavouritesBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favourites, container, false)
+        return favouritesBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        newLayoutManager= GridLayoutManager(requireContext(),1)
+        favouritesBinding.favoriteCardRecycler.layoutManager=newLayoutManager
+        val newArr= dataArray.filter { it.fav }
+        val favoriteRecyclerAdapter=FavoriteRecyclerAdapter(newArr.size, newArr.toTypedArray())
+        favouritesBinding.favoriteCardRecycler.adapter=favoriteRecyclerAdapter
     }
 
 

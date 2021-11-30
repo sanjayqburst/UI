@@ -9,12 +9,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="7dp"
-        android:elevation="20dp"
+        android:elevation="30dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="15dp">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="10dp">
@@ -22,11 +22,11 @@
                 android:layout_width="120dp"
                 app:cardCornerRadius="15dp"
                 android:elevation="15dp"
-                android:layout_height="140dp">
+                android:layout_height="160dp">
                 <ImageView
                     android:id="@+id/recycler_title_img"
                     android:layout_width="120dp"
-                    android:layout_height="140dp"
+                    android:layout_height="160dp"
                     android:scaleType="centerCrop"
                     tools:ignore="ContentDescription"
                     tools:src="@drawable/newsimg" />
@@ -34,20 +34,20 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
+                android:layout_height="160dp"
                 android:layout_marginStart="15dp"
                 android:orientation="vertical">
                 <TextView
                     android:id="@+id/recycler_brief_desc"
                     android:layout_width="match_parent"
-                    android:layout_height="110dp"
+                    android:layout_height="130dp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/ptserifregular"
                     tools:text="@string/sample_brief_desc" />
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="30dp"
                     android:gravity="end"
                     >
                     <TextView

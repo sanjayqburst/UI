@@ -25,4 +25,5 @@
     <string name="profile_image">profile Image</string>
     <string name="news">  News</string>
     <string name="favourite">  Favourite</string>
+    <string name="favorites">Favorites</string>
 </resources>
