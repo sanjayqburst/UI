@@ -58,6 +58,7 @@
                         android:fontFamily="@font/ptserifitalic"
                         tools:text="@string/sample_time" />
                     <ImageButton
+                        android:background="@color/white"
                         android:id="@+id/recycler_fav_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="25dp"

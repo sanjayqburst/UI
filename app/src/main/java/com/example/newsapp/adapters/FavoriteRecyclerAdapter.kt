@@ -1,5 +1,8 @@
 package com.example.newsapp.adapters
 
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +12,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
 import com.example.newsapp.model.NewsInfo
+import com.example.newsapp.ui.DisplayNewsActivity
 
-class FavoriteRecyclerAdapter(private val count:Int, private val dataArray:Array<NewsInfo>)
+class FavoriteRecyclerAdapter(val context: Context,private val count:Int, private val dataArray:Array<NewsInfo>)
     : RecyclerView.Adapter<FavoriteRecyclerAdapter.ViewHolder>() {
 
     inner class ViewHolder(cardView: View): RecyclerView.ViewHolder(cardView){
@@ -21,7 +25,7 @@ class FavoriteRecyclerAdapter(private val count:Int, private val dataArray:Array
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.card_layout,parent,false))
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.news_recycler_card_layout,parent,false))
     }
 
 
@@ -35,6 +39,12 @@ class FavoriteRecyclerAdapter(private val count:Int, private val dataArray:Array
         holder.favButton.setImageResource(R.drawable.favorite)
         holder.newsTime.text=dataArray[position].time
 
-
+        holder.itemView.setOnClickListener {
+            val intent= Intent(context, DisplayNewsActivity::class.java)
+            val bundle= Bundle()
+            bundle.putParcelable("data",dataArray[position])
+            intent.putExtras(bundle)
+            context.startActivity(intent)
+        }
     }
 }

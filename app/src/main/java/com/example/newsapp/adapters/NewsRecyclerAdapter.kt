@@ -14,7 +14,7 @@ import com.example.newsapp.R
 import com.example.newsapp.model.NewsInfo
 import com.example.newsapp.ui.DisplayNewsActivity
 
-class NewsRecyclerAdapter(private val context: Context,private val count:Int, private val dataArray:Array<NewsInfo>)
+class NewsRecyclerAdapter(private val context: Context,private val count:Int, private val dataArray:ArrayList<NewsInfo>)
     : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolder>() {
 
     inner class ViewHolder(cardView: View):RecyclerView.ViewHolder(cardView){
@@ -25,7 +25,7 @@ class NewsRecyclerAdapter(private val context: Context,private val count:Int, pr
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.card_layout,parent,false))
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.news_recycler_card_layout,parent,false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -40,9 +40,9 @@ class NewsRecyclerAdapter(private val context: Context,private val count:Int, pr
 
         holder.itemView.setOnClickListener {
             val intent=Intent(context,DisplayNewsActivity::class.java)
-            intent.putExtra("image",dataArray[position].image.toString())
-            intent.putExtra("brief",dataArray[position].briefDesc)
-            intent.putExtra("time",dataArray[position].time)
+            val bundle=Bundle()
+            bundle.putParcelable("data",dataArray[position])
+            intent.putExtras(bundle)
             context.startActivity(intent)
         }
     }

@@ -24,7 +24,7 @@ class FavouritesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         favouritesBinding= FragmentFavouritesBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
         return favouritesBinding.root
@@ -35,7 +35,7 @@ class FavouritesFragment : Fragment() {
         newLayoutManager= GridLayoutManager(requireContext(),1)
         favouritesBinding.favoriteCardRecycler.layoutManager=newLayoutManager
         val newArr= dataArray.filter { it.fav }
-        val favoriteRecyclerAdapter=FavoriteRecyclerAdapter(newArr.size, newArr.toTypedArray())
+        val favoriteRecyclerAdapter=FavoriteRecyclerAdapter(requireContext(),newArr.size, newArr.toTypedArray())
         favouritesBinding.favoriteCardRecycler.adapter=favoriteRecyclerAdapter
     }
 
