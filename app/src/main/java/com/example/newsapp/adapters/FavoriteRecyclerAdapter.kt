@@ -3,6 +3,7 @@ package com.example.newsapp.adapters
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
 import com.example.newsapp.model.NewsInfo
 import com.example.newsapp.ui.DisplayNewsActivity
+import com.example.newsapp.ui.favorites.FavSharedPreference
 
 class FavoriteRecyclerAdapter(val context: Context,private val count:Int, private val dataArray:Array<NewsInfo>)
     : RecyclerView.Adapter<FavoriteRecyclerAdapter.ViewHolder>() {
+    private var favSharedPreference=FavSharedPreference(context)
 
     inner class ViewHolder(cardView: View): RecyclerView.ViewHolder(cardView){
         var titleImage: ImageView =cardView.findViewById(R.id.recycler_title_img)
@@ -45,6 +48,18 @@ class FavoriteRecyclerAdapter(val context: Context,private val count:Int, privat
             bundle.putParcelable("data",dataArray[position])
             intent.putExtras(bundle)
             context.startActivity(intent)
+        }
+        holder.favButton.setOnClickListener {
+            Log.d("Hello",dataArray[position].id.toString())
+            if (favSharedPreference.hasFav(dataArray[position].id)){
+                favSharedPreference.removeFav(dataArray[position].id)
+                holder.favButton.setImageResource(R.drawable.favorite_border)
+
+            }else{
+                favSharedPreference.saveFav(dataArray[position].id,true)
+                holder.favButton.setImageResource(R.drawable.favorite)
+
+            }
         }
     }
 }

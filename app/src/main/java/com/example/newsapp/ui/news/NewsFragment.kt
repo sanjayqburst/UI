@@ -32,8 +32,8 @@ class NewsFragment : Fragment() {
         return newsBinding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onResume() {
+        super.onResume()
         newLayoutManager= GridLayoutManager(requireContext(),1)
         newsBinding.newsCardRecycler.layoutManager=newLayoutManager
         val newsRecyclerAdapter=NewsRecyclerAdapter(requireContext(),dataArray.size, dataArray)
@@ -43,8 +43,6 @@ class NewsFragment : Fragment() {
             newsDate.text= getDate()
             newsDay.text= getDay()
         }
-
-
     }
 
 
