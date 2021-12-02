@@ -16,7 +16,7 @@ import com.example.newsapp.model.NewsInfo
 import com.example.newsapp.ui.DisplayNewsActivity
 import com.example.newsapp.ui.favorites.FavSharedPreference
 
-class NewsRecyclerAdapter(private val context: Context,private val count:Int, private val dataArray:ArrayList<NewsInfo>)
+class NewsRecyclerAdapter(private val context: Context,private val count:Int, private val dataArray:MutableList<NewsInfo>)
     : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolder>() {
     private val favSharedPreference=FavSharedPreference(context)
 

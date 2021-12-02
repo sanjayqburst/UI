@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.newsapp.R
 import com.example.newsapp.adapters.FavoriteRecyclerAdapter
 import com.example.newsapp.databinding.FragmentFavouritesBinding
+import com.example.newsapp.model.NewsInfo
 import com.example.newsapp.model.dataArray
 
 
@@ -33,6 +34,7 @@ class FavouritesFragment : Fragment() {
         favouritesBinding= FragmentFavouritesBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
         return favouritesBinding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,8 +49,8 @@ class FavouritesFragment : Fragment() {
         val favSharedPreference=FavSharedPreference(requireContext())
         val array= favSharedPreference.getKeys()
         val intArray=array.toTypedArray()
-        val newArr= dataArray.filter { it.id.toString() in intArray}
-        val favoriteRecyclerAdapter=FavoriteRecyclerAdapter(requireContext(),newArr.size, newArr.toTypedArray())
+        val newArr:List<NewsInfo> = dataArray.filter { it.id.toString() in intArray}
+        val favoriteRecyclerAdapter=FavoriteRecyclerAdapter(requireContext(),newArr.size, newArr.toMutableList())
         favouritesBinding.favoriteCardRecycler.adapter=favoriteRecyclerAdapter
 
     }
