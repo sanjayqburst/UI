@@ -21,7 +21,6 @@
             android:textColor="@color/black"
             android:layout_height="wrap_content"
             tools:text="12 Nov 2021"
-            android:fontFamily="@font/ptserifregular"
             android:textSize="14sp"/>
         <TextView
             android:textColor="@color/black"
@@ -31,7 +30,6 @@
             android:layout_height="wrap_content"
             tools:text="Wednesday"
             android:textStyle="bold"
-            android:fontFamily="@font/ptserifregular"
             android:textSize="20sp"/>
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView

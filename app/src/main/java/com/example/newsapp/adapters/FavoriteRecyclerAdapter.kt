@@ -16,7 +16,7 @@ import com.example.newsapp.model.NewsInfo
 import com.example.newsapp.ui.DisplayNewsActivity
 import com.example.newsapp.ui.favorites.FavSharedPreference
 
-class FavoriteRecyclerAdapter(val context: Context,private val count:Int, private var dataArray:MutableList<NewsInfo>)
+class FavoriteRecyclerAdapter(val context: Context, private var dataArray:MutableList<NewsInfo>)
     : RecyclerView.Adapter<FavoriteRecyclerAdapter.ViewHolder>() {
     private var favSharedPreference=FavSharedPreference(context)
 
@@ -50,17 +50,17 @@ class FavoriteRecyclerAdapter(val context: Context,private val count:Int, privat
             context.startActivity(intent)
         }
         holder.favButton.setOnClickListener {
-            Log.d("Hello",dataArray[position].id.toString())
             if (favSharedPreference.hasFav(dataArray[position].id)){
+
                 favSharedPreference.removeFav(dataArray[position].id)
                 holder.favButton.setImageResource(R.drawable.favorite_border)
-                Log.d("Hello",dataArray.toString())
+
                 dataArray.removeAt(position)
                 notifyItemRemoved(position)
-                Log.d("Hello",dataArray.toString())
                 notifyItemRangeChanged(position,dataArray.size)
 
             }else{
+
                 favSharedPreference.saveFav(dataArray[position].id,true)
                 holder.favButton.setImageResource(R.drawable.favorite)
             }

@@ -28,7 +28,6 @@ class NewsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         return newsBinding.root
     }
 
@@ -36,7 +35,7 @@ class NewsFragment : Fragment() {
         super.onResume()
         newLayoutManager= GridLayoutManager(requireContext(),1)
         newsBinding.newsCardRecycler.layoutManager=newLayoutManager
-        val newsRecyclerAdapter=NewsRecyclerAdapter(requireContext(),dataArray.size, dataArray)
+        val newsRecyclerAdapter=NewsRecyclerAdapter(requireContext(), dataArray)
         newsBinding.newsCardRecycler.adapter=newsRecyclerAdapter
 
         newsBinding.apply {

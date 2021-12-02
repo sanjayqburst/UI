@@ -39,7 +39,6 @@ class SettingsFragment : Fragment() {
         profileBinding.profileUsername.text=userName
 
 
-        // Inflate the layout for this fragment
         return profileBinding.root
     }
 

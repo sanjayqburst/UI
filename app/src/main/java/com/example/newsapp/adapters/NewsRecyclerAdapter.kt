@@ -16,7 +16,7 @@ import com.example.newsapp.model.NewsInfo
 import com.example.newsapp.ui.DisplayNewsActivity
 import com.example.newsapp.ui.favorites.FavSharedPreference
 
-class NewsRecyclerAdapter(private val context: Context,private val count:Int, private val dataArray:MutableList<NewsInfo>)
+class NewsRecyclerAdapter(private val context: Context, private val dataArray:MutableList<NewsInfo>)
     : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolder>() {
     private val favSharedPreference=FavSharedPreference(context)
 
@@ -42,7 +42,6 @@ class NewsRecyclerAdapter(private val context: Context,private val count:Int, pr
         holder.newsTime.text=dataArray[position].time
 
         holder.itemView.setOnClickListener {
-            Log.d("Hello",favSharedPreference.getKeys().toString())
             val intent=Intent(context,DisplayNewsActivity::class.java)
             val bundle=Bundle()
             bundle.putParcelable("data",dataArray[position])
@@ -50,7 +49,6 @@ class NewsRecyclerAdapter(private val context: Context,private val count:Int, pr
             context.startActivity(intent)
         }
         holder.favButton.setOnClickListener {
-            Log.d("Hello",dataArray[position].id.toString())
             if (favSharedPreference.hasFav(dataArray[position].id)){
                 favSharedPreference.removeFav(dataArray[position].id)
                 holder.favButton.setImageResource(R.drawable.favorite_border)
@@ -64,6 +62,6 @@ class NewsRecyclerAdapter(private val context: Context,private val count:Int, pr
     }
 
     override fun getItemCount(): Int {
-        return count
+        return dataArray.size
     }
 }

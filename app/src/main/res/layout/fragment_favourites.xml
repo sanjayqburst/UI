@@ -9,12 +9,11 @@
     android:id="@+id/favorite_title"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:layout_goneMarginTop="10sp"
+    android:layout_marginTop="10dp"
     android:textStyle="bold"
     android:letterSpacing="0.1"
     android:textSize="30sp"
     android:textColor="@color/black"
-    android:fontFamily="@font/ptserifregular"
     android:paddingStart="10dp"
     android:text="@string/favorites"
     app:layout_constraintTop_toTopOf="parent"
@@ -22,7 +21,7 @@
     tools:ignore="RtlSymmetry" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="50sp"
+        android:layout_marginTop="55sp"
         android:id="@+id/favorite_card_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -14,7 +14,6 @@ class DisplayNewsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         displayNewsBinding= ActivityDisplayNewsBinding.inflate(layoutInflater)
-        actionBar?.setIcon(R.drawable.favorite)
         favSharedPreference=FavSharedPreference(this)
 
         setContentView(displayNewsBinding.root)
