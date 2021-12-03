@@ -3,7 +3,6 @@ package com.example.newsapp.adapters
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +32,9 @@ class NewsRecyclerAdapter(private val context: Context, private val dataArray:Mu
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.titleImage.setImageResource(dataArray[position].image)
-        holder.briefDesc.text=dataArray[position].briefDesc
+        val str="${dataArray[position].briefDesc.subSequence(0,149)}... \n \n  "+ context.getString(R.string.read_more)
+        holder.briefDesc.text=str
+
         if (favSharedPreference.hasFav(dataArray[position].id)){
             holder.favButton.setImageResource(R.drawable.favorite)
         }else{
@@ -49,19 +50,21 @@ class NewsRecyclerAdapter(private val context: Context, private val dataArray:Mu
             context.startActivity(intent)
         }
         holder.favButton.setOnClickListener {
-            if (favSharedPreference.hasFav(dataArray[position].id)){
-                favSharedPreference.removeFav(dataArray[position].id)
-                holder.favButton.setImageResource(R.drawable.favorite_border)
-
-            }else{
-                favSharedPreference.saveFav(dataArray[position].id,true)
-                holder.favButton.setImageResource(R.drawable.favorite)
-
-            }
+            favButtonListener(dataArray,holder,position)
         }
     }
 
     override fun getItemCount(): Int {
         return dataArray.size
+    }
+
+    private fun favButtonListener(dataArray: MutableList<NewsInfo>, holder: ViewHolder, position: Int){
+        if (favSharedPreference.hasFav(dataArray[position].id)){
+            favSharedPreference.removeFav(dataArray[position].id)
+            holder.favButton.setImageResource(R.drawable.favorite_border)
+        }else{
+            favSharedPreference.saveFav(dataArray[position].id,true)
+            holder.favButton.setImageResource(R.drawable.favorite)
+        }
     }
 }

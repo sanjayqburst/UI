@@ -38,7 +38,8 @@ class FavoriteRecyclerAdapter(val context: Context, private var dataArray:Mutabl
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.titleImage.setImageResource(dataArray[position].image)
-        holder.briefDesc.text=dataArray[position].briefDesc
+        val str="${dataArray[position].briefDesc.subSequence(0,149)}... \n \n  "+ context.getString(R.string.read_more)
+        holder.briefDesc.text=str
         holder.favButton.setImageResource(R.drawable.favorite)
         holder.newsTime.text=dataArray[position].time
 
@@ -50,20 +51,24 @@ class FavoriteRecyclerAdapter(val context: Context, private var dataArray:Mutabl
             context.startActivity(intent)
         }
         holder.favButton.setOnClickListener {
-            if (favSharedPreference.hasFav(dataArray[position].id)){
+            favButtonListener(dataArray,holder,position)
+        }
+    }
 
-                favSharedPreference.removeFav(dataArray[position].id)
-                holder.favButton.setImageResource(R.drawable.favorite_border)
+    private fun favButtonListener(dataArray: MutableList<NewsInfo>,holder: ViewHolder,position: Int){
+        if (favSharedPreference.hasFav(dataArray[position].id)){
 
-                dataArray.removeAt(position)
-                notifyItemRemoved(position)
-                notifyItemRangeChanged(position,dataArray.size)
+            favSharedPreference.removeFav(dataArray[position].id)
+            holder.favButton.setImageResource(R.drawable.favorite_border)
 
-            }else{
+            dataArray.removeAt(position)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position,dataArray.size)
 
-                favSharedPreference.saveFav(dataArray[position].id,true)
-                holder.favButton.setImageResource(R.drawable.favorite)
-            }
+        }else{
+
+            favSharedPreference.saveFav(dataArray[position].id,true)
+            holder.favButton.setImageResource(R.drawable.favorite)
         }
     }
 }
