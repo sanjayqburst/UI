@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="7dp"
-        android:elevation="30dp"
+        app:cardElevation="3dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="15dp">
         <LinearLayout
@@ -63,6 +63,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="25dp"
                         android:layout_gravity="bottom"
+                        app:tint="@color/color7"
                         android:layout_marginStart="20dp"
                         android:padding="0dp"
                         android:src="@drawable/favorite_border"
