@@ -71,6 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/favorite"
+                    app:tint="@color/color7"
                     tools:ignore="ContentDescription" />
             </LinearLayout>
 
