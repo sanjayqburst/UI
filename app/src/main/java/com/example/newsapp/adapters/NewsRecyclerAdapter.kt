@@ -32,8 +32,14 @@ class NewsRecyclerAdapter(private val context: Context, private val dataArray:Mu
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.titleImage.setImageResource(dataArray[position].image)
-        val str="${dataArray[position].briefDesc.subSequence(0,149)}... \n \n  "+ context.getString(R.string.read_more)
-        holder.briefDesc.text=str
+        if (dataArray[position].briefDesc.length>150){
+            val str="${dataArray[position].briefDesc.subSequence(0,149)}... \n \n  "+ context.getString(R.string.read_more)
+            holder.briefDesc.text=str
+
+        }else{
+            val str="${dataArray[position].briefDesc}... \n \n  "+ context.getString(R.string.read_more)
+            holder.briefDesc.text=str
+        }
 
         if (favSharedPreference.hasFav(dataArray[position].id)){
             holder.favButton.setImageResource(R.drawable.favorite)

@@ -38,8 +38,15 @@ class FavoriteRecyclerAdapter(val context: Context, private var dataArray:Mutabl
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.titleImage.setImageResource(dataArray[position].image)
-        val str="${dataArray[position].briefDesc.subSequence(0,149)}... \n \n  "+ context.getString(R.string.read_more)
-        holder.briefDesc.text=str
+        if (dataArray[position].briefDesc.length>150){
+            val str="${dataArray[position].briefDesc.subSequence(0,149)}... \n \n  "+ context.getString(R.string.read_more)
+            holder.briefDesc.text=str
+
+        }else{
+            val str="${dataArray[position].briefDesc}... \n \n  "+ context.getString(R.string.read_more)
+            holder.briefDesc.text=str
+        }
+
         holder.favButton.setImageResource(R.drawable.favorite)
         holder.newsTime.text=dataArray[position].time
 
