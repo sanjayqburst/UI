@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import com.example.newsapp.ui.homescreen.HomeScreenActivity
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentLoginBinding
@@ -35,10 +35,9 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val sharedPreference= UserSharedPreference(requireContext())
         loginFragmentBinding.apply {
-            if (sharedPreference.getValue("username")!="username"){
-                moveActivity(requireContext(), HomeScreenActivity(),sharedPreference.getValue("username"))
-            }else{
-                loginLoginBtn.setOnClickListener {
+            loginUsernameValue.addTextChangedListener { loginUsername.error=null }
+            loginPasswordValue.addTextChangedListener { loginPassword.error=null }
+            loginLoginBtn.setOnClickListener {
                     val user= UserValidate(loginUsernameValue.text.toString(),loginPasswordValue.text.toString())
                     if (!user.checkIsEmpty()){
                         if (user.validateLogin()){
@@ -46,15 +45,25 @@ class LoginFragment : Fragment() {
                             moveActivity(requireContext(), activity = HomeScreenActivity(),loginUsernameValue.text.toString())
                         }
                         else{
-                            Toast.makeText(requireContext(),getString(R.string.user_authentication), Toast.LENGTH_SHORT).show()
+                            if (user.hasUsername()){
+                                loginPassword.error=getString(R.string.user_authentication_password)
+                            }
+                            else{
+                                loginUsername.error=getString(R.string.user_authentication_username)
+                            }
                         }
                     }else{
-                        Toast.makeText(requireContext(),getString(R.string.fill_credentials), Toast.LENGTH_SHORT).show()
+                        if (user.isUserEmpty()){
+                            loginUsername.error=getString(R.string.fill_credentials_username)
+                        }else{
+                            loginPassword.error=getString(R.string.fill_credentials_password)
+
+                        }
                     }
                 }
 
 
-            }
+
             loginSignupBtn.setOnClickListener {
                 requireActivity().supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,
                     SignupFragment()
