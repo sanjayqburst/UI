@@ -5,13 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.adapters.NewsRecyclerAdapter
 import com.example.newsapp.databinding.FragmentNewsBinding
 import com.example.newsapp.model.dataArray
-import com.example.newsapp.utils.getDate
-import com.example.newsapp.utils.getDay
+import com.example.newsapp.utils.getDateOrDay
+import java.util.*
 
 
 class NewsFragment : Fragment() {
@@ -33,14 +32,14 @@ class NewsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        newLayoutManager= GridLayoutManager(requireContext(),1)
+        newLayoutManager= LinearLayoutManager(requireContext())
         newsBinding.newsCardRecycler.layoutManager=newLayoutManager
         val newsRecyclerAdapter=NewsRecyclerAdapter(requireContext(), dataArray)
         newsBinding.newsCardRecycler.adapter=newsRecyclerAdapter
 
         newsBinding.apply {
-            newsDate.text= getDate()
-            newsDay.text= getDay()
+            newsDate.text= Date().getDateOrDay("dd MMM yyyy")
+            newsDay.text= Date().getDateOrDay("EEEE")
         }
     }
 
