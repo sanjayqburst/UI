@@ -25,17 +25,17 @@ class WelcomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val sharedPreference= UserSharedPreference(requireContext())
-        welcomeBinding.apply {
+
             if (sharedPreference.getValue("username")!="username"){
                 moveActivity(requireContext(), HomeScreenActivity(),sharedPreference.getValue("username"))
             }else{
-                welcomeLogin.setOnClickListener {
+                welcomeBinding.welcomeLogin.setOnClickListener {
                     parentFragmentManager.beginTransaction().apply {
                         replace(R.id.fragmentContainer, LoginFragment())
                         commit()
                     }
                 }
-                welcomeSignup.setOnClickListener {
+                welcomeBinding.welcomeSignup.setOnClickListener {
                     parentFragmentManager.beginTransaction().apply {
                         replace(R.id.fragmentContainer, SignupFragment())
                         commit()
@@ -43,7 +43,7 @@ class WelcomeFragment : Fragment() {
                 }
             }
 
-        }
+
 
         // Inflate the layout for this fragment
         return welcomeBinding.root
