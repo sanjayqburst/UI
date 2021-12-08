@@ -33,9 +33,9 @@ class FavouritesFragment : Fragment() {
         super.onResume()
 
         val favSharedPreference=FavSharedPreference(requireContext())
-        val array= favSharedPreference.getKeys()
+        val idArray = favSharedPreference.getKeys()
 
-        val intArray=array.toTypedArray()
+        val intArray = idArray.toTypedArray()
         val newArr:List<NewsInfo> = dataArray.filter { it.id.toString() in intArray}
         val favoriteRecyclerAdapter=FavoriteRecyclerAdapter(requireContext(), newArr.toMutableList())
 
