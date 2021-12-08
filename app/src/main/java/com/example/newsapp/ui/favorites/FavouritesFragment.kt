@@ -1,13 +1,11 @@
 package com.example.newsapp.ui.favorites
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
-import com.example.newsapp.R
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.adapters.FavoriteRecyclerAdapter
 import com.example.newsapp.databinding.FragmentFavouritesBinding
 import com.example.newsapp.model.NewsInfo
@@ -16,7 +14,7 @@ import com.example.newsapp.model.dataArray
 
 class FavouritesFragment : Fragment() {
     private lateinit var favouritesBinding: FragmentFavouritesBinding
-    private lateinit var newLayoutManager: GridLayoutManager
+    private lateinit var newLayoutManager: LinearLayoutManager
     private lateinit var favSharedPreference:FavSharedPreference
 
 
@@ -42,7 +40,7 @@ class FavouritesFragment : Fragment() {
         val favoriteRecyclerAdapter=FavoriteRecyclerAdapter(requireContext(), newArr.toMutableList())
 
         favouritesBinding.favoriteCardRecycler.adapter=favoriteRecyclerAdapter
-        newLayoutManager= GridLayoutManager(requireContext(),1)
+        newLayoutManager= LinearLayoutManager(requireContext())
         favouritesBinding.favoriteCardRecycler.layoutManager=newLayoutManager
 
     }
