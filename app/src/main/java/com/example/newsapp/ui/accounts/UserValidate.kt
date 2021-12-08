@@ -10,4 +10,10 @@ class UserValidate(private val userName:String?, private val passWord:String?) {
             passWord.equals(map.getValue(userName.toString()))
         }else false
     }
+    fun hasUsername():Boolean{
+        return userName in map
+    }
+    fun isUserEmpty():Boolean{
+        return userName?.isEmpty()?:true
+    }
 }
