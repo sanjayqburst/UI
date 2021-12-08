@@ -30,7 +30,7 @@ class SettingsFragment : Fragment() {
     ): View {
         profileBinding.profileLogout.setOnClickListener {
             sharedPreference.clearPreference()
-            val intent= Intent(this@SettingsFragment.context, MainActivity::class.java)
+            val intent= Intent(requireContext(), MainActivity::class.java)
             startActivity(intent)
             requireActivity().finish()
         }
@@ -55,3 +55,5 @@ class SettingsFragment : Fragment() {
         }
     }
 }
+
+//TODO: Indentation,typecasting ,requireContext,requireActivity,calling activity in adapter,context,format code, add comments
