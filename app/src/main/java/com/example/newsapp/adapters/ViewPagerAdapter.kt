@@ -18,7 +18,7 @@ class ViewPagerAdapter(private val count:Int,fragmentManager: FragmentManager,li
             0-> NewsFragment()
             1-> FavouritesFragment()
             2-> SettingsFragment()
-            else->Fragment()
+            else->NewsFragment()
         }
     }
 }
