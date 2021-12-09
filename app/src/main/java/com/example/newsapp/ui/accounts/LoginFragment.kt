@@ -4,22 +4,22 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
-import com.example.newsapp.ui.homescreen.HomeScreenActivity
+import androidx.fragment.app.Fragment
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentLoginBinding
+import com.example.newsapp.ui.homescreen.HomeScreenActivity
 
 class LoginFragment : Fragment() {
-    private lateinit var loginFragmentBinding:FragmentLoginBinding
+    private lateinit var loginFragmentBinding: FragmentLoginBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loginFragmentBinding= FragmentLoginBinding.inflate(layoutInflater)
+        loginFragmentBinding = FragmentLoginBinding.inflate(layoutInflater)
 
     }
 
@@ -27,45 +27,50 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         return loginFragmentBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val sharedPreference= UserSharedPreference(requireContext())
+        val sharedPreference = UserSharedPreference(requireContext())
         loginFragmentBinding.apply {
-            loginUsernameValue.addTextChangedListener { loginUsername.error=null }
-            loginPasswordValue.addTextChangedListener { loginPassword.error=null }
+            loginUsernameValue.addTextChangedListener { loginUsername.error = null }
+            loginPasswordValue.addTextChangedListener { loginPassword.error = null }
             loginLoginBtn.setOnClickListener {
-                    val user= UserValidate(loginUsernameValue.text.toString(),loginPasswordValue.text.toString())
-                    if (!user.checkIsEmpty()){
-                        if (user.validateLogin()){
-                            sharedPreference.save("username",loginUsernameValue.text.toString())
-                            moveActivity(requireContext(), activity = HomeScreenActivity(),loginUsernameValue.text.toString())
-                        }
-                        else{
-                            if (user.hasUsername()){
-                                loginPassword.error=getString(R.string.user_authentication_password)
-                            }
-                            else{
-                                loginUsername.error=getString(R.string.user_authentication_username)
-                            }
-                        }
-                    }else{
-                        if (user.isUserEmpty()){
-                            loginUsername.error=getString(R.string.fill_credentials_username)
-                        }else{
-                            loginPassword.error=getString(R.string.fill_credentials_password)
-
+                val user = UserValidate(
+                    loginUsernameValue.text.toString(),
+                    loginPasswordValue.text.toString()
+                )
+                if (!user.checkIsEmpty()) {
+                    if (user.validateLogin()) {
+                        sharedPreference.save("username", loginUsernameValue.text.toString())
+                        moveActivity(
+                            requireContext(),
+                            activity = HomeScreenActivity(),
+                            loginUsernameValue.text.toString()
+                        )
+                    } else {
+                        if (user.hasUsername()) {
+                            loginPassword.error = getString(R.string.user_authentication_password)
+                        } else {
+                            loginUsername.error = getString(R.string.user_authentication_username)
                         }
                     }
+                } else {
+                    if (user.isUserEmpty()) {
+                        loginUsername.error = getString(R.string.fill_credentials_username)
+                    } else {
+                        loginPassword.error = getString(R.string.fill_credentials_password)
+
+                    }
                 }
+            }
 
 
 
             loginSignupBtn.setOnClickListener {
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,
+                requireActivity().supportFragmentManager.beginTransaction().replace(
+                    R.id.fragmentContainer,
                     SignupFragment()
                 ).commit()
             }
@@ -74,10 +79,9 @@ class LoginFragment : Fragment() {
     }
 
 
-
-    private fun moveActivity(context: Context, activity: Activity, username:String){
-        val intent= Intent(context,activity::class.java).apply {
-            putExtra("username",username)
+    private fun moveActivity(context: Context, activity: Activity, username: String) {
+        val intent = Intent(context, activity::class.java).apply {
+            putExtra("username", username)
         }
         startActivity(intent)
         requireActivity().finish()

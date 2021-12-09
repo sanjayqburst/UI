@@ -5,71 +5,78 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.DisplayNewsActivity">
+
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/display_appbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
-        android:id="@+id/display_appbar"
         app:layout_constraintTop_toTopOf="parent">
-        <com.google.android.material.appbar.MaterialToolbar
-            android:layout_width="wrap_content"
-            android:id="@+id/display_back_button"
-            app:navigationIcon="@drawable/back_button"
-            app:navigationIconTint="@color/color2"
-            android:layout_height="match_parent"/>
-    <com.google.android.material.tabs.TabItem
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
 
-        android:icon="@drawable/favorite"/>
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/display_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:navigationIcon="@drawable/back_button"
+            app:navigationIconTint="@color/color2" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:icon="@drawable/favorite" />
     </com.google.android.material.appbar.AppBarLayout>
+
     <ScrollView
-        android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/display_appbar"
+        android:layout_marginTop="?attr/actionBarSize"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/display_appbar">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <ImageView
-                android:contentDescription="@string/app_name"
+                android:id="@+id/display_title_image"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
+                android:contentDescription="@string/app_name"
                 android:scaleType="centerCrop"
                 android:src="@drawable/newsimg"
-                app:layout_constraintTop_toBottomOf="@id/display_appbar"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:id="@+id/display_title_image"/>
+                app:layout_constraintTop_toBottomOf="@id/display_appbar" />
 
             <LinearLayout
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                >
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
                 <TextView
-                    android:layout_weight="1"
+                    android:id="@+id/display_news_time"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/display_title_image"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:text="@string/sample_time"
-                    android:layout_marginTop="10dp"
                     android:layout_marginStart="8dp"
-                    android:id="@+id/display_news_time"
-                    android:fontFamily="@font/ptserifitalic"/>
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/ptserifitalic"
+                    android:text="@string/sample_time"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/display_title_image" />
+
                 <ImageButton
-                    android:background="@color/white"
                     android:id="@+id/display_fav_btn"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@color/white"
                     android:src="@drawable/favorite"
                     app:tint="@color/color7"
                     tools:ignore="ContentDescription" />
@@ -77,17 +84,17 @@
 
             <TextView
                 android:id="@+id/display_news_brief"
-                android:paddingHorizontal="15dp"
                 android:layout_width="wrap_content"
-                android:text="@string/sample_brief_desc"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
-                android:textSize="20sp"
                 android:fontFamily="@font/ptserifregular"
+                android:paddingHorizontal="15dp"
+                android:text="@string/sample_brief_desc"
                 android:textColor="@color/black"
-                app:layout_constraintTop_toBottomOf="@id/display_title_image"
+                android:textSize="20sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/display_title_image" />
         </LinearLayout>
 
     </ScrollView>

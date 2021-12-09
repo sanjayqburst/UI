@@ -14,12 +14,12 @@ import java.util.*
 
 
 class NewsFragment : Fragment() {
-    private lateinit var newLayoutManager:LinearLayoutManager
+    private lateinit var newLayoutManager: LinearLayoutManager
     private lateinit var newsBinding: FragmentNewsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        newsBinding= FragmentNewsBinding.inflate(layoutInflater)
+        newsBinding = FragmentNewsBinding.inflate(layoutInflater)
 
     }
 
@@ -32,14 +32,14 @@ class NewsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        newLayoutManager= LinearLayoutManager(requireContext())
-        newsBinding.newsCardRecycler.layoutManager=newLayoutManager
-        val newsRecyclerAdapter=NewsRecyclerAdapter(requireContext(), dataArray)
-        newsBinding.newsCardRecycler.adapter=newsRecyclerAdapter
+        newLayoutManager = LinearLayoutManager(requireContext())
+        newsBinding.newsCardRecycler.layoutManager = newLayoutManager
+        val newsRecyclerAdapter = NewsRecyclerAdapter(requireContext(), dataArray)
+        newsBinding.newsCardRecycler.adapter = newsRecyclerAdapter
 
         newsBinding.apply {
-            newsDate.text= Date().getDateOrDay("dd MMM yyyy")
-            newsDay.text= Date().getDateOrDay("EEEE")
+            newsDate.text = Date().getDateOrDay("dd MMM yyyy")
+            newsDay.text = Date().getDateOrDay("EEEE")
         }
     }
 

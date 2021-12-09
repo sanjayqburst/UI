@@ -5,24 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="7dp"
-        app:cardElevation="3dp"
         app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="15dp">
+        app:cardCornerRadius="15dp"
+        app:cardElevation="3dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="10dp">
+
             <androidx.cardview.widget.CardView
                 android:layout_width="120dp"
-                app:cardCornerRadius="15dp"
+                android:layout_height="160dp"
                 android:elevation="15dp"
-                android:layout_height="160dp">
+                app:cardCornerRadius="15dp">
+
                 <ImageView
                     android:id="@+id/recycler_title_img"
                     android:layout_width="120dp"
@@ -37,19 +41,21 @@
                 android:layout_height="160dp"
                 android:layout_marginStart="15dp"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/recycler_brief_desc"
                     android:layout_width="match_parent"
                     android:layout_height="130dp"
-                    android:textColor="@color/black"
                     android:fontFamily="@font/ptserifregular"
+                    android:textColor="@color/black"
                     tools:text="@string/sample_brief_desc" />
+
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:gravity="end"
-                    >
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/recycler_time"
                         android:layout_width="wrap_content"
@@ -57,16 +63,17 @@
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/ptserifitalic"
                         tools:text="@string/sample_time" />
+
                     <ImageButton
-                        android:background="@color/white"
                         android:id="@+id/recycler_fav_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="25dp"
                         android:layout_gravity="bottom"
-                        app:tint="@color/color7"
                         android:layout_marginStart="20dp"
+                        android:background="@color/white"
                         android:padding="0dp"
                         android:src="@drawable/favorite_border"
+                        app:tint="@color/color7"
                         tools:ignore="ContentDescription" />
                 </LinearLayout>
 

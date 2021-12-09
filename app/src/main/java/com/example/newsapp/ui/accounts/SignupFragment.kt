@@ -12,7 +12,7 @@ class SignupFragment : Fragment() {
     private lateinit var signUpBinding: FragmentSignupBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        signUpBinding= FragmentSignupBinding.inflate(layoutInflater)
+        signUpBinding = FragmentSignupBinding.inflate(layoutInflater)
 
     }
 
@@ -28,7 +28,8 @@ class SignupFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         signUpBinding.apply {
             signupLoginBtn.setOnClickListener {
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,
+                requireActivity().supportFragmentManager.beginTransaction().replace(
+                    R.id.fragmentContainer,
                     LoginFragment()
                 ).commit()
             }

@@ -15,48 +15,59 @@ import com.example.newsapp.model.NewsInfo
 import com.example.newsapp.ui.DisplayNewsActivity
 import com.example.newsapp.ui.favorites.FavSharedPreference
 
-class NewsRecyclerAdapter(private val context: Context, private val dataArray:MutableList<NewsInfo>)
-    : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolder>() {
-    private val favSharedPreference=FavSharedPreference(context)
+class NewsRecyclerAdapter(
+    private val context: Context,
+    private val dataArray: MutableList<NewsInfo>
+) : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolder>() {
+    private val favSharedPreference = FavSharedPreference(context)
 
-    inner class ViewHolder(cardView: View):RecyclerView.ViewHolder(cardView){
-        var titleImage:ImageView=cardView.findViewById(R.id.recycler_title_img)
-        var briefDesc:TextView=cardView.findViewById(R.id.recycler_brief_desc)
-        var newsTime:TextView=cardView.findViewById(R.id.recycler_time)
-        var favButton:ImageButton=cardView.findViewById(R.id.recycler_fav_btn)
+    inner class ViewHolder(cardView: View) : RecyclerView.ViewHolder(cardView) {
+        var titleImage: ImageView = cardView.findViewById(R.id.recycler_title_img)
+        var briefDesc: TextView = cardView.findViewById(R.id.recycler_brief_desc)
+        var newsTime: TextView = cardView.findViewById(R.id.recycler_time)
+        var favButton: ImageButton = cardView.findViewById(R.id.recycler_fav_btn)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.news_recycler_card_layout,parent,false))
+        return ViewHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.news_recycler_card_layout, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.titleImage.setImageResource(dataArray[position].image)
-        if (dataArray[position].briefDesc.length>150){
-            val str="${dataArray[position].briefDesc.subSequence(0,149)}... \n \n  "+ context.getString(R.string.read_more)
-            holder.briefDesc.text=str
+        if (dataArray[position].briefDesc.length > 150) {
+            val str = "${
+                dataArray[position].briefDesc.subSequence(
+                    0,
+                    149
+                )
+            }... \n \n  " + context.getString(R.string.read_more)
+            holder.briefDesc.text = str
 
-        }else{
-            val str="${dataArray[position].briefDesc}... \n \n  "+ context.getString(R.string.read_more)
-            holder.briefDesc.text=str
+        } else {
+            val str =
+                "${dataArray[position].briefDesc}... \n \n  " + context.getString(R.string.read_more)
+            holder.briefDesc.text = str
         }
 
-        if (favSharedPreference.hasFav(dataArray[position].id)){
+        if (favSharedPreference.hasFav(dataArray[position].id)) {
             holder.favButton.setImageResource(R.drawable.favorite)
-        }else{
+        } else {
             holder.favButton.setImageResource(R.drawable.favorite_border)
         }
-        holder.newsTime.text=dataArray[position].time
+        holder.newsTime.text = dataArray[position].time
 
         holder.itemView.setOnClickListener {
-            val intent=Intent(context,DisplayNewsActivity::class.java)
-            val bundle=Bundle()
-            bundle.putParcelable("data",dataArray[position])
+            val intent = Intent(context, DisplayNewsActivity::class.java)
+            val bundle = Bundle()
+            bundle.putParcelable("data", dataArray[position])
             intent.putExtras(bundle)
             context.startActivity(intent)
         }
         holder.favButton.setOnClickListener {
-            favButtonListener(dataArray,holder,position)
+            favButtonListener(dataArray, holder, position)
         }
     }
 
@@ -64,12 +75,16 @@ class NewsRecyclerAdapter(private val context: Context, private val dataArray:Mu
         return dataArray.size
     }
 
-    private fun favButtonListener(dataArray: MutableList<NewsInfo>, holder: ViewHolder, position: Int){
-        if (favSharedPreference.hasFav(dataArray[position].id)){
+    private fun favButtonListener(
+        dataArray: MutableList<NewsInfo>,
+        holder: ViewHolder,
+        position: Int
+    ) {
+        if (favSharedPreference.hasFav(dataArray[position].id)) {
             favSharedPreference.removeFav(dataArray[position].id)
             holder.favButton.setImageResource(R.drawable.favorite_border)
-        }else{
-            favSharedPreference.saveFav(dataArray[position].id,true)
+        } else {
+            favSharedPreference.saveFav(dataArray[position].id, true)
             holder.favButton.setImageResource(R.drawable.favorite)
         }
     }

@@ -15,16 +15,15 @@ import com.example.newsapp.model.dataArray
 class FavouritesFragment : Fragment() {
     private lateinit var favouritesBinding: FragmentFavouritesBinding
     private lateinit var newLayoutManager: LinearLayoutManager
-    private lateinit var favSharedPreference:FavSharedPreference
-
+    private lateinit var favSharedPreference: FavSharedPreference
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        favSharedPreference= FavSharedPreference(requireContext())
-        favouritesBinding= FragmentFavouritesBinding.inflate(layoutInflater)
+        favSharedPreference = FavSharedPreference(requireContext())
+        favouritesBinding = FragmentFavouritesBinding.inflate(layoutInflater)
         return favouritesBinding.root
 
     }
@@ -32,16 +31,17 @@ class FavouritesFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        val favSharedPreference=FavSharedPreference(requireContext())
+        val favSharedPreference = FavSharedPreference(requireContext())
         val idArray = favSharedPreference.getKeys()
 
         val intArray = idArray.toTypedArray()
-        val newArr:List<NewsInfo> = dataArray.filter { it.id.toString() in intArray}
-        val favoriteRecyclerAdapter=FavoriteRecyclerAdapter(requireContext(), newArr.toMutableList())
+        val newArr: List<NewsInfo> = dataArray.filter { it.id.toString() in intArray }
+        val favoriteRecyclerAdapter =
+            FavoriteRecyclerAdapter(requireContext(), newArr.toMutableList())
 
-        favouritesBinding.favoriteCardRecycler.adapter=favoriteRecyclerAdapter
-        newLayoutManager= LinearLayoutManager(requireContext())
-        favouritesBinding.favoriteCardRecycler.layoutManager=newLayoutManager
+        favouritesBinding.favoriteCardRecycler.adapter = favoriteRecyclerAdapter
+        newLayoutManager = LinearLayoutManager(requireContext())
+        favouritesBinding.favoriteCardRecycler.layoutManager = newLayoutManager
 
     }
 }

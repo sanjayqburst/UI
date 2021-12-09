@@ -13,10 +13,10 @@ import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentWelcomeBinding
 
 class WelcomeFragment : Fragment() {
-    private lateinit var welcomeBinding:FragmentWelcomeBinding
+    private lateinit var welcomeBinding: FragmentWelcomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        welcomeBinding= FragmentWelcomeBinding.inflate(layoutInflater)
+        welcomeBinding = FragmentWelcomeBinding.inflate(layoutInflater)
 
     }
 
@@ -24,33 +24,37 @@ class WelcomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val sharedPreference= UserSharedPreference(requireContext())
+        val sharedPreference = UserSharedPreference(requireContext())
 
-            if (sharedPreference.getValue("username")!="username"){
-                moveActivity(requireContext(), HomeScreenActivity(),sharedPreference.getValue("username"))
-            }else{
-                welcomeBinding.welcomeLogin.setOnClickListener {
-                    parentFragmentManager.beginTransaction().apply {
-                        replace(R.id.fragmentContainer, LoginFragment())
-                        commit()
-                    }
-                }
-                welcomeBinding.welcomeSignup.setOnClickListener {
-                    parentFragmentManager.beginTransaction().apply {
-                        replace(R.id.fragmentContainer, SignupFragment())
-                        commit()
-                    }
+        if (sharedPreference.getValue("username") != "username") {
+            moveActivity(
+                requireContext(),
+                HomeScreenActivity(),
+                sharedPreference.getValue("username")
+            )
+        } else {
+            welcomeBinding.welcomeLogin.setOnClickListener {
+                parentFragmentManager.beginTransaction().apply {
+                    replace(R.id.fragmentContainer, LoginFragment())
+                    commit()
                 }
             }
-
+            welcomeBinding.welcomeSignup.setOnClickListener {
+                parentFragmentManager.beginTransaction().apply {
+                    replace(R.id.fragmentContainer, SignupFragment())
+                    commit()
+                }
+            }
+        }
 
 
         // Inflate the layout for this fragment
         return welcomeBinding.root
     }
-    private fun moveActivity(context: Context, activity: Activity, username:String){
-        val intent= Intent(context,activity::class.java).apply {
-            putExtra("username",username)
+
+    private fun moveActivity(context: Context, activity: Activity, username: String) {
+        val intent = Intent(context, activity::class.java).apply {
+            putExtra("username", username)
         }
         startActivity(intent)
         requireActivity().finish()

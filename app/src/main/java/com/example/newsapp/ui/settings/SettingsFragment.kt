@@ -18,8 +18,8 @@ class SettingsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        profileBinding= FragmentSettingsBinding.inflate(layoutInflater)
-        sharedPreference= UserSharedPreference(requireContext())
+        profileBinding = FragmentSettingsBinding.inflate(layoutInflater)
+        sharedPreference = UserSharedPreference(requireContext())
 
 
     }
@@ -30,13 +30,13 @@ class SettingsFragment : Fragment() {
     ): View {
         profileBinding.profileLogout.setOnClickListener {
             sharedPreference.clearPreference()
-            val intent= Intent(requireContext(), MainActivity::class.java)
+            val intent = Intent(requireContext(), MainActivity::class.java)
             startActivity(intent)
             requireActivity().finish()
         }
 
-        val userName=sharedPreference.getValue("username")
-        profileBinding.profileUsername.text=userName
+        val userName = sharedPreference.getValue("username")
+        profileBinding.profileUsername.text = userName
 
 
         return profileBinding.root
@@ -44,13 +44,13 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val viewPager: ViewPager2 =requireActivity().findViewById(R.id.viewPager)
+        val viewPager: ViewPager2 = requireActivity().findViewById(R.id.viewPager)
         profileBinding.apply {
             profileNewsBtnText.setOnClickListener {
-                viewPager.setCurrentItem(0,true)
+                viewPager.setCurrentItem(0, true)
             }
             profileFavBtn.setOnClickListener {
-                viewPager.setCurrentItem(1,true)
+                viewPager.setCurrentItem(1, true)
             }
         }
     }
