@@ -1,10 +1,10 @@
 package com.example.newsapp.ui.favorites
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.adapters.FavoriteRecyclerAdapter
 import com.example.newsapp.databinding.FragmentFavouritesBinding
@@ -30,15 +30,11 @@ class FavouritesFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
         val favSharedPreference = FavSharedPreference(requireContext())
         val idArray = favSharedPreference.getKeys()
-
-        val intArray = idArray.toTypedArray()
-        val newArr: List<NewsInfo> = dataArray.filter { it.id.toString() in intArray }
+        val newArr: List<NewsInfo> = dataArray.filter { it.id.toString() in idArray }
         val favoriteRecyclerAdapter =
             FavoriteRecyclerAdapter(requireContext(), newArr.toMutableList())
-
         favouritesBinding.favoriteCardRecycler.adapter = favoriteRecyclerAdapter
         newLayoutManager = LinearLayoutManager(requireContext())
         favouritesBinding.favoriteCardRecycler.layoutManager = newLayoutManager
