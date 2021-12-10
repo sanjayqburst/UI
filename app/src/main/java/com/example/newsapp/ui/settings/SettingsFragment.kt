@@ -2,15 +2,15 @@ package com.example.newsapp.ui.settings
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.example.newsapp.ui.MainActivity
 import com.example.newsapp.R
-import com.example.newsapp.ui.accounts.UserSharedPreference
 import com.example.newsapp.databinding.FragmentSettingsBinding
+import com.example.newsapp.ui.MainActivity
+import com.example.newsapp.ui.accounts.UserSharedPreference
 
 class SettingsFragment : Fragment() {
     private lateinit var profileBinding: FragmentSettingsBinding
@@ -56,4 +56,4 @@ class SettingsFragment : Fragment() {
     }
 }
 
-//TODO: Indentation,typecasting ,requireContext,requireActivity,calling activity in adapter,context,format code, add comments
+//TODO: typecasting ,calling activity in adapter, add comments
