@@ -20,8 +20,7 @@
     <string name="account_already">Already have an account? </string>
     <string name="fill_credentials_username">Username should not be empty</string>
     <string name="fill_credentials_password">Password should not be empty</string>
-    <string name="user_authentication_password">Wrong password</string>
-    <string name="user_authentication_username">Could not find your Account</string>
+    <string name="user_authentication">Username and password do not match</string>
     <string name="logout">Logout</string>
     <string name="profile_image">profile Image</string>
     <string name="news">  News</string>
