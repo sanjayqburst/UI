@@ -33,4 +33,4 @@ val item4 = item1.copy(id = 4, image = R.drawable.news4, time = "12:00PM, 12 Nov
 val item5 = item1.copy(id = 5, image = R.drawable.news2)
 val item6 = item2.copy(id = 6, fav = true)
 
-val dataArray: MutableList<NewsInfo> = arrayListOf(item1, item2, item3, item4, item5, item6)
+val dataArray = arrayListOf(item1, item2, item3, item4, item5, item6)
