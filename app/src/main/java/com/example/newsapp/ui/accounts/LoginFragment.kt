@@ -50,11 +50,8 @@ class LoginFragment : Fragment() {
                             loginUsernameValue.text.toString()
                         )
                     } else {
-                        if (user.hasUsername()) {
-                            loginPassword.error = getString(R.string.user_authentication_password)
-                        } else {
-                            loginUsername.error = getString(R.string.user_authentication_username)
-                        }
+                        loginPassword.error = getString(R.string.user_authentication)
+
                     }
                 } else {
                     if (user.isUserEmpty()) {
