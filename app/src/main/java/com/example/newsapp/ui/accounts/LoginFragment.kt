@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentLoginBinding
+import com.example.newsapp.network.ConnectivityStatus
 import com.example.newsapp.ui.homescreen.HomeScreenActivity
 
 class LoginFragment : Fragment() {
@@ -41,26 +43,40 @@ class LoginFragment : Fragment() {
                     loginUsernameValue.text.toString(),
                     loginPasswordValue.text.toString()
                 )
-                if (!user.checkIsEmpty()) {
-                    if (user.validateLogin()) {
-                        sharedPreference.save("username", loginUsernameValue.text.toString())
-                        moveActivity(
-                            requireContext(),
-                            activity = HomeScreenActivity(),
-                            loginUsernameValue.text.toString()
-                        )
-                    } else {
-                        loginPassword.error = getString(R.string.user_authentication)
+                if (ConnectivityStatus.isNetworkAvailable(requireContext())) {
+                    Log.d("Msg", "Hello Network")
 
+
+                    if (!user.checkIsEmpty()) {
+                        user.validateLogin {
+                            if (it) {
+                                sharedPreference.save(
+                                    "username",
+                                    loginUsernameValue.text.toString()
+                                )
+                                moveActivity(
+                                    requireContext(),
+                                    activity = HomeScreenActivity(),
+                                    loginUsernameValue.text.toString()
+                                )
+                            } else {
+                                loginPassword.error = getString(R.string.user_authentication)
+
+                            }
+                        }
+
+                    } else {
+                        if (user.isUserEmpty()) {
+                            loginUsername.error = getString(R.string.fill_credentials_username)
+                        } else {
+                            loginPassword.error = getString(R.string.fill_credentials_password)
+
+                        }
                     }
                 } else {
-                    if (user.isUserEmpty()) {
-                        loginUsername.error = getString(R.string.fill_credentials_username)
-                    } else {
-                        loginPassword.error = getString(R.string.fill_credentials_password)
-
-                    }
+                    Log.d("Msg", "Hello")
                 }
+
             }
 
 
