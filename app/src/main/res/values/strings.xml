@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">News App</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
+    <string name="username">Enter your email</string>
+    <string name="password">Enter your password</string>
     <string name="login">Login</string>
     <string name="hello">Hello !</string>
     <string name="sample_brief_desc">Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.</string>
@@ -28,4 +28,11 @@
     <string name="favorites">Favorites</string>
     <string name="more">more</string>
     <string name="read_more"><i>Tap to read more</i> </string>
+    <string name="no_network">No network available</string>
+    <string name="username_required">username required</string>
+    <string name="password_required">password required</string>
+    <string name="cnf_password_required">confirm password required</string>
+    <string name="email_already_exists">Email already exists</string>
+    <string name="cnf_password_not_match">Confirm password do not match</string>
+    <string name="enter_valid_email">Enter valid email</string>
 </resources>

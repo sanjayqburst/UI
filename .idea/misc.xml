@@ -13,6 +13,7 @@
         <entry key="app/src/main/res/layout/fragment_favourites.xml" value="0.21" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_news.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_no_network.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.16927083333333334" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_signup.xml" value="0.16927083333333334" />
