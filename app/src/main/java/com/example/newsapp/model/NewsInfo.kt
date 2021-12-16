@@ -34,3 +34,5 @@ val item5 = item1.copy(id = 5, image = R.drawable.news2)
 val item6 = item2.copy(id = 6, fav = true)
 
 val dataArray = arrayListOf(item1, item2, item3, item4, item5, item6)
+
+//https://newsapi.org/v2/top-headlines?country=in&apiKey=1474c2a0697c48f6a924cd8c507d80c0

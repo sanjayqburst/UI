@@ -1,7 +1,7 @@
 package com.example.newsapp.ui.homescreen
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import com.example.newsapp.R
 import com.example.newsapp.adapters.ViewPagerAdapter
