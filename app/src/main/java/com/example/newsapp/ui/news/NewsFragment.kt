@@ -27,6 +27,7 @@ class NewsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         newsBinding = FragmentNewsBinding.inflate(layoutInflater)
+        Log.d("Msg", "onCreate news")
 
 
     }
@@ -35,37 +36,53 @@ class NewsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Log.d("Msg", "onCreateView")
+        Log.d("Msg", "onViewCreated")
+
+
         return newsBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val api = RetrofitUtil.headlines
-        api.enqueue(object : Callback<NewsData> {
-            override fun onResponse(call: Call<NewsData>, response: Response<NewsData>) {
-                Log.d("Msg", "${response.body()}")
-                dataArrayNews = response.body()!!.articles
 
-                newLayoutManager = LinearLayoutManager(requireContext())
-                newsBinding.newsCardRecycler.layoutManager = newLayoutManager
-                val newsRecyclerAdapter = NewsRecyclerAdapter(requireContext(), dataArrayNews)
-                newsBinding.newsCardRecycler.adapter = newsRecyclerAdapter
 
-                newsBinding.apply {
-                    newsDate.text = Date().getDateOrDay("dd MMM yyyy")
-                    newsDay.text = Date().getDateOrDay("EEEE")
-                }
-            }
+    }
 
-            override fun onFailure(call: Call<NewsData>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-        })
+    override fun onStart() {
+        super.onStart()
 
     }
 
     override fun onResume() {
         super.onResume()
+        val api = RetrofitUtil.headlines
+
+
+        api.clone().enqueue(object : Callback<NewsData> {
+            override fun onResponse(call: Call<NewsData>, response: Response<NewsData>) {
+                Log.d("Msg", "onResponse")
+
+                Log.d("Msg", "Response ${response.body()}")
+                dataArrayNews = response.body()!!.articles
+                newLayoutManager = LinearLayoutManager(requireContext())
+                newsBinding.newsCardRecycler.layoutManager = newLayoutManager
+                val newsRecyclerAdapter = NewsRecyclerAdapter(requireContext(), dataArrayNews)
+                newsBinding.newsCardRecycler.adapter = newsRecyclerAdapter
+
+
+            }
+
+            override fun onFailure(call: Call<NewsData>, t: Throwable) {
+                Log.d("Msg", "onViewCreated")
+//                Log.d("Hello ")
+            }
+        })
+
+        newsBinding.apply {
+            newsDate.text = Date().getDateOrDay("dd MMM yyyy")
+            newsDay.text = Date().getDateOrDay("EEEE")
+        }
     }
 
 
