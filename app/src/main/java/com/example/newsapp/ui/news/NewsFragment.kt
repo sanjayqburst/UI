@@ -42,10 +42,10 @@ class NewsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         val api = RetrofitUtil.headlines
+//        TODO : seperate api through callback function
         api.clone().enqueue(object : Callback<NewsData> {
             override fun onResponse(call: Call<NewsData>, response: Response<NewsData>) {
                 Log.d("Msg", "onResponse")
-
                 Log.d("Msg", "Response ${response.body()}")
                 dataArrayNews = response.body()!!.articles
                 newLayoutManager = LinearLayoutManager(requireContext())

@@ -2,7 +2,7 @@ package com.example.newsapp.ui.accounts
 
 import com.google.firebase.auth.FirebaseAuth
 
-class UserValidate(private val email: String?, private val passWord: String?) {
+class UserValidateLogin(private val email: String?, private val passWord: String?) {
     private var auth = FirebaseAuth.getInstance()
 
     fun checkIsEmpty(): Boolean {

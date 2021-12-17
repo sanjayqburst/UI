@@ -26,6 +26,7 @@ class UserValidateSignup(
     }
 
     fun isEmailExists(updateBool: (Boolean) -> Unit) {
+        // TODO:Email if loop, .addOnFailureListener {  },rename updateBool, firebase to singleton class seperate validation
         auth.fetchSignInMethodsForEmail(email!!).addOnCompleteListener { task ->
             updateBool(task.result.signInMethods?.size == 0)
         }

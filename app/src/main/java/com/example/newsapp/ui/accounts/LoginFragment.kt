@@ -38,7 +38,7 @@ class LoginFragment : Fragment() {
             loginUsernameValue.addTextChangedListener { loginUsername.error = null }
             loginPasswordValue.addTextChangedListener { loginPassword.error = null }
             loginLoginBtn.setOnClickListener {
-                val user = UserValidate(
+                val user = UserValidateLogin(
                     loginUsernameValue.text.toString(),
                     loginPasswordValue.text.toString()
                 )
