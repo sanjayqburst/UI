@@ -1,7 +1,6 @@
 package com.example.newsapp.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.newsapp.R
@@ -16,11 +15,9 @@ class DisplayNewsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         displayNewsBinding = ActivityDisplayNewsBinding.inflate(layoutInflater)
         favSharedPreference = FavSharedPreference(this)
-
         setContentView(displayNewsBinding.root)
         val bundle = intent.extras
         val data: Article? = bundle?.getParcelable("NewsData")
-        Log.d("Msg", "$data")
         displayNewsBinding.displayNewsBrief.text = data?.description
         displayNewsBinding.displayNewsTime.text = data?.publishedAt
         if (data != null) {
@@ -33,24 +30,20 @@ class DisplayNewsActivity : AppCompatActivity() {
             }
         }
 
-
         displayNewsBinding.displayFavBtn.setOnClickListener {
             if (data != null) {
                 if (favSharedPreference.hasFav(data.url)) {
                     favSharedPreference.removeFav(data.url)
                     displayNewsBinding.displayFavBtn.setImageResource(R.drawable.favorite_border)
-
                 } else {
                     favSharedPreference.saveFav(data.url, true)
                     displayNewsBinding.displayFavBtn.setImageResource(R.drawable.favorite)
-
                 }
             }
         }
+
         displayNewsBinding.displayBackButton.setOnClickListener {
             finish()
         }
-
-
     }
 }

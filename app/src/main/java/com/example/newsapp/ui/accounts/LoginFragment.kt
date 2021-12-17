@@ -18,7 +18,6 @@ import com.example.newsapp.ui.homescreen.HomeScreenActivity
 class LoginFragment : Fragment() {
     private lateinit var loginFragmentBinding: FragmentLoginBinding
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         loginFragmentBinding = FragmentLoginBinding.inflate(layoutInflater)
@@ -44,9 +43,6 @@ class LoginFragment : Fragment() {
                     loginPasswordValue.text.toString()
                 )
                 if (ConnectivityStatus.isNetworkAvailable(requireContext())) {
-                    Log.d("Msg", "Hello Network")
-
-
                     if (!user.checkIsEmpty()) {
                         user.validateLogin {
                             if (it) {
@@ -61,25 +57,19 @@ class LoginFragment : Fragment() {
                                 )
                             } else {
                                 loginPassword.error = getString(R.string.user_authentication)
-
                             }
                         }
-
                     } else {
                         if (user.isUserEmpty()) {
                             loginUsername.error = getString(R.string.fill_credentials_username)
                         } else {
                             loginPassword.error = getString(R.string.fill_credentials_password)
-
                         }
                     }
                 } else {
                     Log.d("Msg", "Hello")
                 }
-
             }
-
-
 
             loginSignupBtn.setOnClickListener {
                 requireActivity().supportFragmentManager.beginTransaction().replace(
@@ -88,9 +78,7 @@ class LoginFragment : Fragment() {
                 ).commit()
             }
         }
-
     }
-
 
     private fun moveActivity(context: Context, activity: Activity, username: String) {
         val intent = Intent(context, activity::class.java).apply {
@@ -99,5 +87,4 @@ class LoginFragment : Fragment() {
         startActivity(intent)
         requireActivity().finish()
     }
-
 }

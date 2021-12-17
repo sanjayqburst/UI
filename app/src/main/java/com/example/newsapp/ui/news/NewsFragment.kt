@@ -28,8 +28,6 @@ class NewsFragment : Fragment() {
         super.onCreate(savedInstanceState)
         newsBinding = FragmentNewsBinding.inflate(layoutInflater)
         Log.d("Msg", "onCreate news")
-
-
     }
 
     override fun onCreateView(
@@ -38,27 +36,12 @@ class NewsFragment : Fragment() {
     ): View {
         Log.d("Msg", "onCreateView")
         Log.d("Msg", "onViewCreated")
-
-
         return newsBinding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-    }
-
-    override fun onStart() {
-        super.onStart()
-
     }
 
     override fun onResume() {
         super.onResume()
         val api = RetrofitUtil.headlines
-
-
         api.clone().enqueue(object : Callback<NewsData> {
             override fun onResponse(call: Call<NewsData>, response: Response<NewsData>) {
                 Log.d("Msg", "onResponse")
@@ -69,16 +52,12 @@ class NewsFragment : Fragment() {
                 newsBinding.newsCardRecycler.layoutManager = newLayoutManager
                 val newsRecyclerAdapter = NewsRecyclerAdapter(requireContext(), dataArrayNews)
                 newsBinding.newsCardRecycler.adapter = newsRecyclerAdapter
-
-
             }
 
             override fun onFailure(call: Call<NewsData>, t: Throwable) {
                 Log.d("Msg", "onViewCreated")
-//                Log.d("Hello ")
             }
         })
-
         newsBinding.apply {
             newsDate.text = Date().getDateOrDay("dd MMM yyyy")
             newsDay.text = Date().getDateOrDay("EEEE")

@@ -14,7 +14,6 @@ class NoNetworkFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         noNetworkBinding = FragmentNoNetworkBinding.inflate(layoutInflater)
-
     }
 
     override fun onCreateView(

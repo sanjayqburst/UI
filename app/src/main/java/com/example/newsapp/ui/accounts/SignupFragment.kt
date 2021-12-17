@@ -19,21 +19,18 @@ class SignupFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         signUpBinding = FragmentSignupBinding.inflate(layoutInflater)
-
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         return signUpBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val sharedPreference = UserSharedPreference(requireContext())
-
 //        Signup Logic
         signUpBinding.apply {
             signupUsernameValue.addTextChangedListener { signupUsername.error = null }
@@ -43,7 +40,6 @@ class SignupFragment : Fragment() {
                 val userEmail = signupUsernameValue.text
                 val password = signupPasswordValue.text
                 val confirmPassword = signupCnfPasswordValue.text
-
                 val userSignUp = UserValidateSignup(
                     userEmail.toString(),
                     password.toString(),
@@ -87,12 +83,9 @@ class SignupFragment : Fragment() {
                     } else {
                         signupUsername.error = getString(R.string.enter_valid_email)
                     }
-
-
                 }
             }
         }
-
 
         signUpBinding.apply {
             signupLoginBtn.setOnClickListener {

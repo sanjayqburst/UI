@@ -9,13 +9,11 @@ class UserValidate(private val email: String?, private val passWord: String?) {
         return email?.isEmpty() ?: true || passWord?.isEmpty() ?: true
     }
 
-
     fun validateLogin(updateBoolean: (Boolean) -> Unit) {
         auth.signInWithEmailAndPassword(email!!, passWord!!).addOnCompleteListener { task ->
             updateBoolean(task.isSuccessful)
         }
     }
-
 
     fun isUserEmpty(): Boolean {
         return email?.isEmpty() ?: true

@@ -20,8 +20,6 @@ class SettingsFragment : Fragment() {
         super.onCreate(savedInstanceState)
         profileBinding = FragmentSettingsBinding.inflate(layoutInflater)
         sharedPreference = UserSharedPreference(requireContext())
-
-
     }
 
     override fun onCreateView(
@@ -34,11 +32,8 @@ class SettingsFragment : Fragment() {
             startActivity(intent)
             requireActivity().finish()
         }
-
         val userName = sharedPreference.getValue("username")
         profileBinding.profileUsername.text = userName
-
-
         return profileBinding.root
     }
 

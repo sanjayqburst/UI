@@ -22,18 +22,13 @@ class FavouritesFragment : Fragment() {
     private lateinit var newLayoutManager: LinearLayoutManager
     private lateinit var favSharedPreference: FavSharedPreference
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         favSharedPreference = FavSharedPreference(requireContext())
         favouritesBinding = FragmentFavouritesBinding.inflate(layoutInflater)
-
-
         return favouritesBinding.root
-
-
     }
 
     override fun onResume() {
@@ -41,10 +36,8 @@ class FavouritesFragment : Fragment() {
         val api = RetrofitUtil.headlines
         val favSharedPreference = FavSharedPreference(requireContext())
         val idArray = favSharedPreference.getKeys()
-        Log.d("Msg", "create view $idArray")
         api.clone().enqueue(object : Callback<NewsData> {
             override fun onResponse(call: Call<NewsData>, response: Response<NewsData>) {
-
                 val newArr: List<Article> = response.body()!!.articles.filter { it.url in idArray }
                 val favoriteRecyclerAdapter =
                     FavoriteRecyclerAdapter(requireContext(), newArr.toMutableList())
@@ -58,6 +51,5 @@ class FavouritesFragment : Fragment() {
             }
         })
     }
-
 
 }

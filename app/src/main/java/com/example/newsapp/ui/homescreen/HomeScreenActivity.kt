@@ -12,13 +12,9 @@ class HomeScreenActivity : AppCompatActivity() {
     private lateinit var homeScreenBinding: ActivityHomeScreenBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         val tabIcons = arrayOf(R.drawable.news, R.drawable.favorite, R.drawable.profile)
-
         super.onCreate(savedInstanceState)
-
         homeScreenBinding = ActivityHomeScreenBinding.inflate(layoutInflater)
         setContentView(homeScreenBinding.root)
-
-
         homeScreenBinding.apply {
             viewPager.adapter =
                 ViewPagerAdapter(tabLayout.tabCount, supportFragmentManager, lifecycle)
@@ -27,7 +23,5 @@ class HomeScreenActivity : AppCompatActivity() {
                     AppCompatResources.getDrawable(this@HomeScreenActivity, tabIcons[position])
             }.attach()
         }
-
-
     }
 }

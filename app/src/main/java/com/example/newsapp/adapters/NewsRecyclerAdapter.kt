@@ -3,7 +3,6 @@ package com.example.newsapp.adapters
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,27 +39,10 @@ class NewsRecyclerAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-
-//        if (dataArray[position].description.length > 150) {
-//            val str = "${
-//                dataArray[position].description.subSequence(
-//                    0,
-//                    149
-//                )
-//            }... \n \n  " + context.getString(R.string.read_more)
-//            holder.briefDesc.text = str
-//
-//        } else {
-//            val str =
-//                "${dataArray[position].description}... \n \n  " + context.getString(R.string.read_more)
-        Log.d("Msg", "${dataArray[position].title}")
         holder.briefDesc.text = dataArray[position].title
-//        }
         Glide.with(context).load(dataArray[position].urlToImage).centerCrop()
             .into(holder.titleImage)
-
         holder.newsTime.text = dataArray[position].publishedAt
-
         if (favSharedPreference.hasFav(dataArray[position].url)) {
             holder.favButton.setImageResource(R.drawable.favorite)
         } else {
@@ -70,8 +52,6 @@ class NewsRecyclerAdapter(
             favButtonListener(dataArray.toMutableList(), holder, position)
         }
 
-
-
         holder.itemView.setOnClickListener {
             val intent = Intent(context, DisplayNewsActivity::class.java)
             val bundle = Bundle()
@@ -79,8 +59,6 @@ class NewsRecyclerAdapter(
             intent.putExtras(bundle)
             context.startActivity(intent)
         }
-
-
     }
 
     private fun favButtonListener(

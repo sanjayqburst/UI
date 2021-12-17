@@ -4,20 +4,19 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.newsapp.ui.homescreen.HomeScreenActivity
+import androidx.fragment.app.Fragment
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentWelcomeBinding
+import com.example.newsapp.ui.homescreen.HomeScreenActivity
 
 class WelcomeFragment : Fragment() {
     private lateinit var welcomeBinding: FragmentWelcomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         welcomeBinding = FragmentWelcomeBinding.inflate(layoutInflater)
-
     }
 
     override fun onCreateView(
@@ -25,7 +24,6 @@ class WelcomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val sharedPreference = UserSharedPreference(requireContext())
-
         if (sharedPreference.getValue("username") != "username") {
             moveActivity(
                 requireContext(),
@@ -46,9 +44,6 @@ class WelcomeFragment : Fragment() {
                 }
             }
         }
-
-
-        // Inflate the layout for this fragment
         return welcomeBinding.root
     }
 
