@@ -11,21 +11,21 @@ class FavSharedPreference(context: Context) {
         Context.MODE_PRIVATE
     )
 
-    fun saveFav(key: Int, value: Boolean) {
+    fun saveFav(key: String, value: Boolean) {
         val editor = sharedPreference.edit()
-        editor?.putBoolean(key.toString(), value)
+        editor?.putBoolean(key, value)
         editor?.apply()
     }
 
-    fun hasFav(key: Int): Boolean {
-        return sharedPreference.contains(key.toString())
+    fun hasFav(key: String): Boolean {
+        return sharedPreference.contains(key)
     }
 
     fun getKeys(): MutableSet<String> {
         return sharedPreference.all.keys
     }
 
-    fun removeFav(key: Int) {
-        sharedPreference.edit()?.remove(key.toString())?.apply()
+    fun removeFav(key: String) {
+        sharedPreference.edit()?.remove(key)?.apply()
     }
 }
