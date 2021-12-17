@@ -1,11 +1,12 @@
 package com.example.newsapp.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.newsapp.R
 import com.example.newsapp.databinding.ActivityDisplayNewsBinding
-import com.example.newsapp.model.NewsInfo
+import com.example.newsapp.model.Article
 import com.example.newsapp.ui.favorites.FavSharedPreference
 
 class DisplayNewsActivity : AppCompatActivity() {
@@ -18,25 +19,29 @@ class DisplayNewsActivity : AppCompatActivity() {
 
         setContentView(displayNewsBinding.root)
         val bundle = intent.extras
-        val data: NewsInfo? = bundle?.getParcelable("data")
-        displayNewsBinding.displayNewsBrief.text = data?.content
-        displayNewsBinding.displayNewsTime.text = data?.time
+        val data: Article? = bundle?.getParcelable("NewsData")
+        Log.d("Msg", "$data")
+        displayNewsBinding.displayNewsBrief.text = data?.description
+        displayNewsBinding.displayNewsTime.text = data?.publishedAt
         if (data != null) {
-            displayNewsBinding.displayTitleImage.setImageResource(data.image)
-            if (favSharedPreference.hasFav(data.id)) {
+            Glide.with(applicationContext).load(data.urlToImage).centerCrop()
+                .into(displayNewsBinding.displayTitleImage)
+            if (favSharedPreference.hasFav(data.url)) {
                 displayNewsBinding.displayFavBtn.setImageResource(R.drawable.favorite)
             } else {
                 displayNewsBinding.displayFavBtn.setImageResource(R.drawable.favorite_border)
             }
         }
+
+
         displayNewsBinding.displayFavBtn.setOnClickListener {
             if (data != null) {
-                if (favSharedPreference.hasFav(data.id)) {
-                    favSharedPreference.removeFav(data.id)
+                if (favSharedPreference.hasFav(data.url)) {
+                    favSharedPreference.removeFav(data.url)
                     displayNewsBinding.displayFavBtn.setImageResource(R.drawable.favorite_border)
 
                 } else {
-                    favSharedPreference.saveFav(data.id, true)
+                    favSharedPreference.saveFav(data.url, true)
                     displayNewsBinding.displayFavBtn.setImageResource(R.drawable.favorite)
 
                 }
