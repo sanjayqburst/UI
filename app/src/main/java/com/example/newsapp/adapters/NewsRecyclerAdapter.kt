@@ -1,28 +1,34 @@
 package com.example.newsapp.adapters
 
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsapp.R
 import com.example.newsapp.model.Article
+import com.example.newsapp.ui.DisplayNewsActivity
+import com.example.newsapp.ui.favorites.FavSharedPreference
 
 class NewsRecyclerAdapter(
     private val context: Context,
     private val dataArray: List<Article>
 ) : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolder>() {
 
-//    private val favSharedPreference = FavSharedPreference(context)
+    private val favSharedPreference = FavSharedPreference(context)
 
     inner class ViewHolder(cardView: View) : RecyclerView.ViewHolder(cardView) {
         var titleImage: ImageView = cardView.findViewById(R.id.recycler_title_img)
         var briefDesc: TextView = cardView.findViewById(R.id.recycler_brief_desc)
         var newsTime: TextView = cardView.findViewById(R.id.recycler_time)
-//        var favButton: ImageButton = cardView.findViewById(R.id.recycler_fav_btn)
+        var favButton: ImageButton = cardView.findViewById(R.id.recycler_fav_btn)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -47,45 +53,48 @@ class NewsRecyclerAdapter(
 //        } else {
 //            val str =
 //                "${dataArray[position].description}... \n \n  " + context.getString(R.string.read_more)
+        Log.d("Msg", "${dataArray[position].title}")
         holder.briefDesc.text = dataArray[position].title
 //        }
         Glide.with(context).load(dataArray[position].urlToImage).centerCrop()
             .into(holder.titleImage)
 
         holder.newsTime.text = dataArray[position].publishedAt
-/*
-        if (favSharedPreference.hasFav(dataArray[position].source.id)) {
+
+        if (favSharedPreference.hasFav(dataArray[position].url)) {
             holder.favButton.setImageResource(R.drawable.favorite)
         } else {
             holder.favButton.setImageResource(R.drawable.favorite_border)
         }
-* holder.itemView.setOnClickListener {
+        holder.favButton.setOnClickListener {
+            favButtonListener(dataArray.toMutableList(), holder, position)
+        }
+
+
+
+        holder.itemView.setOnClickListener {
             val intent = Intent(context, DisplayNewsActivity::class.java)
             val bundle = Bundle()
-            bundle.putParcelable("data", dataArray[position])
+            bundle.putParcelable("NewsData", dataArray[position])
             intent.putExtras(bundle)
             context.startActivity(intent)
         }
-        *       holder.favButton.setOnClickListener {
-            favButtonListener(dataArray, holder, position)
-        }
+
+
     }
-            private fun favButtonListener(
-            dataArray: MutableList<NewsInfo>,
-            holder: ViewHolder,
-            position: Int
-        ) {
-            if (favSharedPreference.hasFav(dataArray[position].id)) {
-                favSharedPreference.removeFav(dataArray[position].id)
-                holder.favButton.setImageResource(R.drawable.favorite_border)
-            } else {
-                favSharedPreference.saveFav(dataArray[position].id, true)
-                holder.favButton.setImageResource(R.drawable.favorite)
-            }
+
+    private fun favButtonListener(
+        dataArray: MutableList<Article>,
+        holder: ViewHolder,
+        position: Int
+    ) {
+        if (favSharedPreference.hasFav(dataArray[position].url)) {
+            favSharedPreference.removeFav(dataArray[position].url)
+            holder.favButton.setImageResource(R.drawable.favorite_border)
+        } else {
+            favSharedPreference.saveFav(dataArray[position].url, true)
+            holder.favButton.setImageResource(R.drawable.favorite)
         }
-* */
-
-
     }
 
     override fun getItemCount(): Int {
