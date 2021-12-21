@@ -42,7 +42,7 @@ class NewsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         val api = RetrofitUtil.headlines
-//        TODO : seperate api through callback function
+//        TODO : separate api through callback function
         api.clone().enqueue(object : Callback<NewsData> {
             override fun onResponse(call: Call<NewsData>, response: Response<NewsData>) {
                 Log.d("Msg", "onResponse")

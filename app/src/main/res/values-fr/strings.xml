@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">News App</string>
+    <string name="username">Enter your email</string>
+    <string name="password">Enter your password</string>
+    <string name="login">Login</string>
+    <string name="hello">Hello !</string>
+    <string name="sample_brief_desc">Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.</string>
+    <string name="sample_time">11:05 AM, 12 Nov, 2021</string>
+    <string name="welcome_desc">Best place to read news is just a few steps away from you.</string>
+    <string name="signup">Signup</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome">Welcome !</string>
+    <string name="login_desc">Sign In to continue</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="or">or</string>
+    <string name="no_account">Don\'t have an account?</string>
+    <string name="hi">Hi !</string>
+    <string name="new_account">Create a new account</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="account_already">Already have an account? </string>
+    <string name="fill_credentials_username">Username should not be empty</string>
+    <string name="fill_credentials_password">Password should not be empty</string>
+    <string name="user_authentication">Username and password do not match</string>
+    <string name="logout">Logout</string>
+    <string name="profile_image">profile Image</string>
+    <string name="news">  News</string>
+    <string name="favourite">  Favourite</string>
+    <string name="favorites">Favorites</string>
+    <string name="more">more</string>
+    <string name="read_more"><i>Tap to read more</i> </string>
+    <string name="no_network">No network available</string>
+    <string name="username_required">username required</string>
+    <string name="password_required">password required</string>
+    <string name="cnf_password_required">confirm password required</string>
+    <string name="email_already_exists">Email already exists</string>
+    <string name="cnf_password_not_match">Confirm password do not match</string>
+    <string name="enter_valid_email">Enter valid email</string>
+</resources>
