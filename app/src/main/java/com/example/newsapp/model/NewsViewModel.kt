@@ -8,7 +8,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class NewsViewModel : ViewModel() {
-
+    // TODO: Write proper network class
     companion object {
         private var userData = MutableLiveData<NewsData>()
 

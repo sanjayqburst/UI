@@ -3,7 +3,7 @@ package com.example.newsapp.network
 import com.google.firebase.auth.FirebaseAuth
 
 //      For handling firebase connection
-class FirebaseAuthUtil(var email: String, var password: String) {
+class FirebaseAuthUtil(private var email: String, private var password: String) {
     private var auth = FirebaseAuth.getInstance()
 
     fun validateLogin(updateBoolean: (Boolean) -> Unit) {

@@ -16,6 +16,10 @@ class FavouritesFragment : Fragment() {
     private lateinit var favouritesBinding: FragmentFavouritesBinding
     private lateinit var newLayoutManager: LinearLayoutManager
     private lateinit var favSharedPreference: FavSharedPreference
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
