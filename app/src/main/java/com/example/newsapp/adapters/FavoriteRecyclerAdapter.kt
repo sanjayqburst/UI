@@ -16,10 +16,12 @@ import com.example.newsapp.model.Article
 import com.example.newsapp.ui.DisplayNewsActivity
 import com.example.newsapp.ui.favorites.FavSharedPreference
 
+// Adapter for favourites recycler view
 class FavoriteRecyclerAdapter(val context: Context, private var dataArray: MutableList<Article>) :
     RecyclerView.Adapter<FavoriteRecyclerAdapter.ViewHolder>() {
     private var favSharedPreference = FavSharedPreference(context)
 
+    // View holder for adapter
     inner class ViewHolder(cardView: View) : RecyclerView.ViewHolder(cardView) {
         var titleImage: ImageView = cardView.findViewById(R.id.recycler_title_img)
         var briefDesc: TextView = cardView.findViewById(R.id.recycler_brief_desc)
@@ -40,25 +42,17 @@ class FavoriteRecyclerAdapter(val context: Context, private var dataArray: Mutab
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+//        Image loading with glide library
         Glide.with(context).load(dataArray[position].urlToImage).into(holder.titleImage)
-        if (dataArray[position].description?.length!! > 150) {
-            val str = "${
-                dataArray[position].description?.subSequence(
-                    0,
-                    149
-                )
-            }... \n \n  " + context.getString(R.string.read_more)
-            holder.briefDesc.text = str
 
-        } else {
-            val str =
-                "${dataArray[position].description}... \n \n  " + context.getString(R.string.read_more)
-            holder.briefDesc.text = str
-        }
-
+//        Assigning corresponding values to view holder
+        val str =
+            "${dataArray[position].description}... \n \n  " + context.getString(R.string.read_more)
+        holder.briefDesc.text = str
         holder.favButton.setImageResource(R.drawable.favorite)
         holder.newsTime.text = dataArray[position].publishedAt
 
+//        On news card click event
         holder.itemView.setOnClickListener {
             val intent = Intent(context, DisplayNewsActivity::class.java)
             val bundle = Bundle()
@@ -66,27 +60,25 @@ class FavoriteRecyclerAdapter(val context: Context, private var dataArray: Mutab
             intent.putExtras(bundle)
             context.startActivity(intent)
         }
+//        On favourite button click event
         holder.favButton.setOnClickListener {
             favButtonListener(dataArray, holder, position)
         }
     }
 
+    //    Fun for on fav button click event
     private fun favButtonListener(
         dataArray: MutableList<Article>,
         holder: ViewHolder,
         position: Int
     ) {
         if (favSharedPreference.hasFav(dataArray[position].url)) {
-
             favSharedPreference.removeFav(dataArray[position].url)
             holder.favButton.setImageResource(R.drawable.favorite_border)
-
             dataArray.removeAt(position)
             notifyItemRemoved(position)
             notifyItemRangeChanged(position, dataArray.size)
-
         } else {
-
             favSharedPreference.saveFav(dataArray[position].url, true)
             holder.favButton.setImageResource(R.drawable.favorite)
         }

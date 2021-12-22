@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 
+// Singleton class for checking network connection status
 object ConnectivityStatus {
     fun isNetworkAvailable(context: Context): Boolean {
         val connectivityManager =

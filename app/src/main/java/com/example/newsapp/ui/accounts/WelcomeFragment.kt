@@ -12,6 +12,7 @@ import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentWelcomeBinding
 import com.example.newsapp.ui.homescreen.HomeScreenActivity
 
+// Fragment for loading welcome page
 class WelcomeFragment : Fragment() {
     private lateinit var welcomeBinding: FragmentWelcomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +48,7 @@ class WelcomeFragment : Fragment() {
         return welcomeBinding.root
     }
 
+    //    Fun to move to another activity
     private fun moveActivity(context: Context, activity: Activity, username: String) {
         val intent = Intent(context, activity::class.java).apply {
             putExtra("username", username)

@@ -16,13 +16,17 @@ import com.example.newsapp.model.Article
 import com.example.newsapp.ui.DisplayNewsActivity
 import com.example.newsapp.ui.favorites.FavSharedPreference
 
+// Adapter for News fragment recycler view
+
 class NewsRecyclerAdapter(
     private val context: Context,
     private val dataArray: List<Article>
 ) : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolder>() {
 
+    //    Creating instance of sharedPreference
     private val favSharedPreference = FavSharedPreference(context)
 
+    //    Creating view holder for adapter
     inner class ViewHolder(cardView: View) : RecyclerView.ViewHolder(cardView) {
         var titleImage: ImageView = cardView.findViewById(R.id.recycler_title_img)
         var briefDesc: TextView = cardView.findViewById(R.id.recycler_brief_desc)
@@ -38,11 +42,14 @@ class NewsRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-        holder.briefDesc.text = dataArray[position].title
+//        Loading image with glide library
         Glide.with(context).load(dataArray[position].urlToImage).centerCrop()
             .into(holder.titleImage)
+//        Assigning values to view holder
+        holder.briefDesc.text = dataArray[position].title
         holder.newsTime.text = dataArray[position].publishedAt
+
+//        Setting fav button to selected or unselected
         if (favSharedPreference.hasFav(dataArray[position].url)) {
             holder.favButton.setImageResource(R.drawable.favorite)
         } else {
@@ -61,6 +68,11 @@ class NewsRecyclerAdapter(
         }
     }
 
+    override fun getItemCount(): Int {
+        return dataArray.size
+    }
+
+    //    Fun for fav button click event
     private fun favButtonListener(
         dataArray: MutableList<Article>,
         holder: ViewHolder,
@@ -73,9 +85,5 @@ class NewsRecyclerAdapter(
             favSharedPreference.saveFav(dataArray[position].url, true)
             holder.favButton.setImageResource(R.drawable.favorite)
         }
-    }
-
-    override fun getItemCount(): Int {
-        return dataArray.size
     }
 }

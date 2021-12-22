@@ -3,6 +3,7 @@ package com.example.newsapp.ui.accounts
 import android.content.Context
 import android.content.SharedPreferences
 
+// Shared preference instance for validating user login
 class UserSharedPreference(context: Context) {
     private val sharedPreference: SharedPreferences? =
         context.getSharedPreferences("userLogin", Context.MODE_PRIVATE)

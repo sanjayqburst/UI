@@ -12,10 +12,13 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentSignupBinding
+import com.example.newsapp.network.FirebaseAuthUtil
 import com.example.newsapp.ui.homescreen.HomeScreenActivity
 
 class SignupFragment : Fragment() {
+
     private lateinit var signUpBinding: FragmentSignupBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         signUpBinding = FragmentSignupBinding.inflate(layoutInflater)
@@ -31,11 +34,11 @@ class SignupFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val sharedPreference = UserSharedPreference(requireContext())
-//        Signup Logic
         signUpBinding.apply {
             signupUsernameValue.addTextChangedListener { signupUsername.error = null }
             signupPasswordValue.addTextChangedListener { signupPassword.error = null }
             signupCnfPasswordValue.addTextChangedListener { signupCnfPassword.error = null }
+//      Authenticating new user
             signupSignupBtn.setOnClickListener {
                 val userEmail = signupUsernameValue.text
                 val password = signupPasswordValue.text
@@ -59,12 +62,14 @@ class SignupFragment : Fragment() {
                     }
                 } else {
                     if (Patterns.EMAIL_ADDRESS.matcher(userEmail.toString()).matches()) {
-                        userSignUp.isEmailExists { task ->
+                        val firebaseAuthUtil =
+                            FirebaseAuthUtil(userEmail.toString(), password.toString())
+                        firebaseAuthUtil.isEmailExists { task ->
                             if (!task) {
                                 signupUsername.error = getString(R.string.email_already_exists)
                             } else {
                                 if (userSignUp.isPasswordSame()) {
-                                    userSignUp.signUp {
+                                    firebaseAuthUtil.signUp {
                                         if (it) {
                                             sharedPreference.save("username", userEmail.toString())
                                             moveActivity(
@@ -85,18 +90,20 @@ class SignupFragment : Fragment() {
                     }
                 }
             }
-        }
-
-        signUpBinding.apply {
+//      Changing fragment to login
             signupLoginBtn.setOnClickListener {
                 requireActivity().supportFragmentManager.beginTransaction().replace(
                     R.id.fragmentContainer,
                     LoginFragment()
                 ).commit()
             }
+
         }
+
+
     }
 
+    //    Fun to move to new activity on successful login
     private fun moveActivity(context: Context, activity: Activity, username: String) {
         val intent = Intent(context, activity::class.java).apply {
             putExtra("username", username)

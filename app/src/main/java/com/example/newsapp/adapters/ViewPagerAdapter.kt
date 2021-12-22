@@ -8,6 +8,7 @@ import com.example.newsapp.ui.favorites.FavouritesFragment
 import com.example.newsapp.ui.news.NewsFragment
 import com.example.newsapp.ui.settings.SettingsFragment
 
+//      Adapter for viewpager2
 class ViewPagerAdapter(
     private val count: Int,
     fragmentManager: FragmentManager,
@@ -17,6 +18,7 @@ class ViewPagerAdapter(
         return count
     }
 
+    //    Assigning fragments to each position respectively
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> NewsFragment()

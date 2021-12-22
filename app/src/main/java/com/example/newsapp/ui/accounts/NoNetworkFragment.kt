@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentNoNetworkBinding
 
+// Fragment to show no network status
 class NoNetworkFragment : Fragment() {
     private lateinit var noNetworkBinding: FragmentNoNetworkBinding
 

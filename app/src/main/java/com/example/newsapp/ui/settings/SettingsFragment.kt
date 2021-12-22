@@ -51,4 +51,3 @@ class SettingsFragment : Fragment() {
     }
 }
 
-//TODO: typecasting ,calling activity in adapter, add comments

@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentLoginBinding
 import com.example.newsapp.network.ConnectivityStatus
+import com.example.newsapp.network.FirebaseAuthUtil
 import com.example.newsapp.ui.homescreen.HomeScreenActivity
 
 class LoginFragment : Fragment() {
@@ -21,7 +22,6 @@ class LoginFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         loginFragmentBinding = FragmentLoginBinding.inflate(layoutInflater)
-
     }
 
     override fun onCreateView(
@@ -35,8 +35,10 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val sharedPreference = UserSharedPreference(requireContext())
         loginFragmentBinding.apply {
+//      Method to clear error on change of text
             loginUsernameValue.addTextChangedListener { loginUsername.error = null }
             loginPasswordValue.addTextChangedListener { loginPassword.error = null }
+//      Authenticating user
             loginLoginBtn.setOnClickListener {
                 val user = UserValidateLogin(
                     loginUsernameValue.text.toString(),
@@ -44,7 +46,11 @@ class LoginFragment : Fragment() {
                 )
                 if (ConnectivityStatus.isNetworkAvailable(requireContext())) {
                     if (!user.checkIsEmpty()) {
-                        user.validateLogin {
+                        val firebaseAuthUtil = FirebaseAuthUtil(
+                            loginUsernameValue.text.toString(),
+                            loginPasswordValue.text.toString()
+                        )
+                        firebaseAuthUtil.validateLogin {
                             if (it) {
                                 sharedPreference.save(
                                     "username",
@@ -70,7 +76,7 @@ class LoginFragment : Fragment() {
                     Log.d("Msg", "Hello")
                 }
             }
-
+//      Changing fragment to signup
             loginSignupBtn.setOnClickListener {
                 requireActivity().supportFragmentManager.beginTransaction().replace(
                     R.id.fragmentContainer,
@@ -80,6 +86,7 @@ class LoginFragment : Fragment() {
         }
     }
 
+    //    Fun to move to new activity on successful login
     private fun moveActivity(context: Context, activity: Activity, username: String) {
         val intent = Intent(context, activity::class.java).apply {
             putExtra("username", username)
