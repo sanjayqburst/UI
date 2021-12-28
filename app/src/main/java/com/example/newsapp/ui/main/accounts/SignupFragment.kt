@@ -1,4 +1,4 @@
-package com.example.newsapp.ui.accounts
+package com.example.newsapp.ui.main.accounts
 
 import android.app.Activity
 import android.content.Context
@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentSignupBinding
 import com.example.newsapp.network.FirebaseAuthUtil
-import com.example.newsapp.ui.homescreen.HomeScreenActivity
+import com.example.newsapp.ui.main.homescreen.HomeScreenActivity
 
 class SignupFragment : Fragment() {
 

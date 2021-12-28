@@ -6,7 +6,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainer"
-        android:name="com.example.newsapp.ui.accounts.WelcomeFragment"
+        android:name="com.example.newsapp.ui.main.accounts.WelcomeFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"

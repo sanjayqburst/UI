@@ -1,4 +1,4 @@
-package com.example.newsapp.adapters
+package com.example.newsapp.ui.main.adapters
 
 import android.content.Context
 import android.content.Intent
@@ -13,11 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsapp.R
 import com.example.newsapp.model.Article
-import com.example.newsapp.ui.DisplayNewsActivity
-import com.example.newsapp.ui.favorites.FavSharedPreference
+import com.example.newsapp.ui.main.DisplayNewsActivity
+import com.example.newsapp.ui.main.favorites.FavSharedPreference
 
 // Adapter for favourites recycler view
-class FavoriteRecyclerAdapter(val context: Context, private var dataArray: MutableList<Article>) :
+class FavoriteRecyclerAdapter(val context: Context, private var dataArray: ArrayList<Article>) :
     RecyclerView.Adapter<FavoriteRecyclerAdapter.ViewHolder>() {
     private var favSharedPreference = FavSharedPreference(context)
 
@@ -81,6 +81,13 @@ class FavoriteRecyclerAdapter(val context: Context, private var dataArray: Mutab
         } else {
             favSharedPreference.saveFav(dataArray[position].url, true)
             holder.favButton.setImageResource(R.drawable.favorite)
+        }
+    }
+
+    fun addNews(newsData: List<Article>) {
+        this.dataArray.apply {
+            clear()
+            addAll(newsData)
         }
     }
 }

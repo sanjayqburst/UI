@@ -1,4 +1,4 @@
-package com.example.newsapp.ui.accounts
+package com.example.newsapp.ui.main.accounts
 
 // User login credentials check
 class UserValidateLogin(private val email: String?, private val passWord: String?) {

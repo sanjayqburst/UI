@@ -35,4 +35,6 @@
     <string name="email_already_exists">Email already exists</string>
     <string name="cnf_password_not_match">Confirm password do not match</string>
     <string name="enter_valid_email">Enter valid email</string>
+    <string name="english">English</string>
+    <string name="french">French</string>
 </resources>

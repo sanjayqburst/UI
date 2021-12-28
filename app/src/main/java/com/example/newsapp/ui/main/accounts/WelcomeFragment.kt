@@ -1,4 +1,4 @@
-package com.example.newsapp.ui.accounts
+package com.example.newsapp.ui.main.accounts
 
 import android.app.Activity
 import android.content.Context
@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentWelcomeBinding
-import com.example.newsapp.ui.homescreen.HomeScreenActivity
+import com.example.newsapp.ui.main.homescreen.HomeScreenActivity
 
 // Fragment for loading welcome page
 class WelcomeFragment : Fragment() {

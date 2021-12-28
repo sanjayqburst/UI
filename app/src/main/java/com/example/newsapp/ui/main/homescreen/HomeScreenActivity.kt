@@ -1,11 +1,11 @@
-package com.example.newsapp.ui.homescreen
+package com.example.newsapp.ui.main.homescreen
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import com.example.newsapp.R
-import com.example.newsapp.adapters.ViewPagerAdapter
 import com.example.newsapp.databinding.ActivityHomeScreenBinding
+import com.example.newsapp.ui.main.adapters.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeScreenActivity : AppCompatActivity() {

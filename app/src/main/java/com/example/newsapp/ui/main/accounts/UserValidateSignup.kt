@@ -1,4 +1,4 @@
-package com.example.newsapp.ui.accounts
+package com.example.newsapp.ui.main.accounts
 
 // User signup credentials check
 class UserValidateSignup(

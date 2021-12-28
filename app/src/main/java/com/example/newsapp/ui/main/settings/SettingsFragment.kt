@@ -1,6 +1,7 @@
-package com.example.newsapp.ui.settings
+package com.example.newsapp.ui.main.settings
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentSettingsBinding
-import com.example.newsapp.ui.MainActivity
-import com.example.newsapp.ui.accounts.UserSharedPreference
+import com.example.newsapp.ui.main.MainActivity
+import com.example.newsapp.ui.main.accounts.UserSharedPreference
+import java.util.*
 
 class SettingsFragment : Fragment() {
     private lateinit var profileBinding: FragmentSettingsBinding
@@ -47,7 +49,27 @@ class SettingsFragment : Fragment() {
             profileFavBtn.setOnClickListener {
                 viewPager.setCurrentItem(1, true)
             }
+
+            french.setOnClickListener {
+                localeChange("fr")
+            }
+            english.setOnClickListener {
+                localeChange("en")
+            }
+
         }
+    }
+
+    private fun localeChange(localeCode: String) {
+        val config = resources.configuration
+        val locale = Locale(localeCode)
+        Locale.setDefault(locale)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            config.setLocale(locale)
+        } else {
+            config.locale = locale
+        }
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 }
 

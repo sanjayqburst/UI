@@ -1,4 +1,4 @@
-package com.example.newsapp.ui
+package com.example.newsapp.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -6,7 +6,7 @@ import com.bumptech.glide.Glide
 import com.example.newsapp.R
 import com.example.newsapp.databinding.ActivityDisplayNewsBinding
 import com.example.newsapp.model.Article
-import com.example.newsapp.ui.favorites.FavSharedPreference
+import com.example.newsapp.ui.main.favorites.FavSharedPreference
 
 class DisplayNewsActivity : AppCompatActivity() {
     private lateinit var displayNewsBinding: ActivityDisplayNewsBinding

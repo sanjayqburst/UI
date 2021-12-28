@@ -1,8 +1,8 @@
-package com.example.newsapp.ui.favorites
+package com.example.newsapp.ui.main.favorites
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.newsapp.ui.accounts.UserSharedPreference
+import com.example.newsapp.ui.main.accounts.UserSharedPreference
 
 class FavSharedPreference(context: Context) {
     private val userSharedPreference = UserSharedPreference(context)

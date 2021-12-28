@@ -1,4 +1,4 @@
-package com.example.newsapp.ui.accounts
+package com.example.newsapp.ui.main.accounts
 
 import android.app.Activity
 import android.content.Context
@@ -14,7 +14,7 @@ import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentLoginBinding
 import com.example.newsapp.network.ConnectivityStatus
 import com.example.newsapp.network.FirebaseAuthUtil
-import com.example.newsapp.ui.homescreen.HomeScreenActivity
+import com.example.newsapp.ui.main.homescreen.HomeScreenActivity
 
 class LoginFragment : Fragment() {
     private lateinit var loginFragmentBinding: FragmentLoginBinding

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ui.accounts.SignupFragment">
+    tools:context=".ui.main.accounts.SignupFragment">
 
     <TextView
         android:id="@+id/signup_welcome"

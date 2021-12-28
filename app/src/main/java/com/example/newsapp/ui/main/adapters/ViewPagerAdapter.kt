@@ -1,12 +1,12 @@
-package com.example.newsapp.adapters
+package com.example.newsapp.ui.main.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.newsapp.ui.favorites.FavouritesFragment
-import com.example.newsapp.ui.news.NewsFragment
-import com.example.newsapp.ui.settings.SettingsFragment
+import com.example.newsapp.ui.main.favorites.FavouritesFragment
+import com.example.newsapp.ui.main.news.NewsFragment
+import com.example.newsapp.ui.main.settings.SettingsFragment
 
 //      Adapter for viewpager2
 class ViewPagerAdapter(
