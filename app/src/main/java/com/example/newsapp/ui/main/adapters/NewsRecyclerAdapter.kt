@@ -91,6 +91,7 @@ class NewsRecyclerAdapter(
         this.dataArray.apply {
             clear()
             addAll(newsData)
+            notifyDataSetChanged()
         }
     }
 }

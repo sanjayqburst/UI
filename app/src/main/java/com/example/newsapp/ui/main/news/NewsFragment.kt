@@ -104,8 +104,6 @@ class NewsFragment : Fragment() {
     private fun retrieveData(newsData: List<Article>) {
         newsRecyclerAdapter.apply {
             addNews(newsData)
-            notifyDataSetChanged()
-//            TODO:Change notifyDataset changed
         }
     }
 
