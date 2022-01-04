@@ -18,7 +18,11 @@ class DisplayNewsActivity : AppCompatActivity() {
         setContentView(displayNewsBinding.root)
         val bundle = intent.extras
         val data: Article? = bundle?.getParcelable("NewsData")
-        displayNewsBinding.displayNewsBrief.text = data?.description
+        if (data?.content != null) {
+            displayNewsBinding.displayNewsBrief.text = data.content
+        } else {
+            displayNewsBinding.displayNewsBrief.text = data?.description
+        }
         displayNewsBinding.displayNewsTime.text = data?.publishedAt
         if (data != null) {
             Glide.with(applicationContext).load(data.urlToImage).centerCrop()
