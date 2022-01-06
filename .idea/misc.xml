@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable/back_button.xml" value="0.19166666666666668" />
         <entry key="app/src/main/res/drawable/gradient.xml" value="0.18541666666666667" />
+        <entry key="app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.20364583333333333" />
         <entry key="app/src/main/res/drawable/news.xml" value="0.18541666666666667" />
         <entry key="app/src/main/res/layout/activity_display_news.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_home_screen.xml" value="0.2" />
@@ -15,7 +16,7 @@
         <entry key="app/src/main/res/layout/fragment_news.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_no_network.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.16927083333333334" />
-        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_signup.xml" value="0.16927083333333334" />
         <entry key="app/src/main/res/layout/fragment_welcome.xml" value="0.1" />
         <entry key="app/src/main/res/layout/news_recycler_card_layout.xml" value="0.22" />

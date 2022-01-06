@@ -1,11 +1,18 @@
 package com.example.newsapp.ui.main.settings
 
+import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.newsapp.R
@@ -58,6 +65,33 @@ class SettingsFragment : Fragment() {
             }
 
         }
+
+        val result =
+            this.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val bitMap = result.data?.extras?.get("data") as Bitmap
+                    profileBinding.profileImage.setImageBitmap(bitMap)
+                } else {
+                    Log.d("Msg", "Error")
+                }
+            }
+        val captureImage = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+        profileBinding.fabButton.setOnClickListener {
+            if (ActivityCompat.checkSelfPermission(
+                    requireContext(),
+                    android.Manifest.permission.CAMERA
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                result.launch(captureImage)
+            } else {
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(android.Manifest.permission.CAMERA),
+                    100
+                )
+            }
+        }
     }
 
     private fun localeChange(localeCode: String) {
@@ -71,5 +105,7 @@ class SettingsFragment : Fragment() {
         }
         resources.updateConfiguration(config, resources.displayMetrics)
     }
+
+
 }
 
