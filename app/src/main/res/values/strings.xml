@@ -37,4 +37,6 @@
     <string name="enter_valid_email">Enter valid email</string>
     <string name="english">English</string>
     <string name="french">French</string>
+    <string name="camera">CAMERA</string>
+    <string name="gallery">GALLERY</string>
 </resources>
