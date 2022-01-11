@@ -5,7 +5,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
+import android.os.LocaleList
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,11 +20,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentSettingsBinding
 import com.example.newsapp.ui.main.MainActivity
 import com.example.newsapp.ui.main.accounts.UserSharedPreference
-import com.example.newsapp.ui.main.homescreen.HomeScreenActivity
 import java.util.*
 
 class SettingsFragment : Fragment() {
@@ -62,10 +64,14 @@ class SettingsFragment : Fragment() {
                 if (result.resultCode == Activity.RESULT_OK) {
                     if (result.data?.extras?.get("data") is Bitmap) {
                         val bitMap = result.data?.extras?.get("data") as Bitmap
-                        profileBinding.profileImage.setImageBitmap(bitMap)
+                        Glide.with(this).load(bitMap).centerCrop()
+                            .into(profileBinding.profileImage)
+                        Log.d(TAG, "${result.data?.extras?.get("uri")}")
+                        Log.d(TAG, "${result.data?.extras?.get("path")}")
+                        Log.d(TAG, "${result.data?.extras}")
                     } else {
                         val uri = result.data?.data
-                        profileBinding.profileImage.setImageURI(uri)
+                        Glide.with(this).load(uri).centerCrop().into(profileBinding.profileImage)
                     }
 
                 } else {
@@ -85,12 +91,12 @@ class SettingsFragment : Fragment() {
                 viewPager.setCurrentItem(1, true)
             }
 
-            french.setOnClickListener {
-                localeChange("fr")
-            }
-            english.setOnClickListener {
-                localeChange("en")
-            }
+//            french.setOnClickListener {
+//                localeChange("fr")
+//            }
+//            english.setOnClickListener {
+//                localeChange("en")
+//            }
 
         }
 
@@ -125,19 +131,51 @@ class SettingsFragment : Fragment() {
         }
     }
 
+
     private fun localeChange(localeCode: String) {
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            val localeListToSet = LocaleList(Locale(localeCode))
+//            LocaleList.setDefault(localeListToSet)
+//            resources.configuration.setLocales(localeListToSet)
+//            resources.updateConfiguration(resources.configuration, resources.displayMetrics)
+//        }
 
 
         val configuration = Configuration()
         val locale = Locale(localeCode)
         Locale.setDefault(locale)
         configuration.setLocale(locale)
-        requireActivity().baseContext.resources.updateConfiguration(
-            configuration,
-            requireActivity().baseContext.resources.displayMetrics
-        )
-        val refresh = Intent(requireActivity(), HomeScreenActivity::class.java)
-        startActivity(refresh)
+        requireActivity().baseContext.createConfigurationContext(configuration)
+        val fragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            configuration.setLocale(locale)
+            val localeList = LocaleList(locale)
+            LocaleList.setDefault(localeList)
+            configuration.setLocales(localeList)
+            configuration.setLayoutDirection(locale)
+            requireActivity().baseContext.createConfigurationContext(configuration)
+
+
+        } else {
+            configuration.locale = locale
+            requireActivity().resources.updateConfiguration(
+                configuration,
+                resources.displayMetrics
+            )
+            fragmentTransaction.detach(this)
+            fragmentTransaction.attach(this)
+            fragmentTransaction.commit()
+        }
+
+
+//        requireActivity().baseContext.resources.updateConfiguration(
+//            configuration,
+//            requireActivity().baseContext.resources.displayMetrics
+//        )
+//        val refresh = Intent(requireActivity(), HomeScreenActivity::class.java)
+//        startActivity(refresh)
+
 
     }
 
