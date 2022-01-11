@@ -7,6 +7,7 @@ import com.example.newsapp.utils.Resource
 import kotlinx.coroutines.Dispatchers
 
 class NewsViewModel(private val newsRepository: NewsRepository) : ViewModel() {
+    //
     fun getNewsData() = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {
