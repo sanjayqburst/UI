@@ -3,11 +3,8 @@ package com.example.newsapp.ui.main.settings
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.res.Configuration
 import android.graphics.Bitmap
-import android.os.Build
 import android.os.Bundle
-import android.os.LocaleList
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -25,7 +22,6 @@ import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentSettingsBinding
 import com.example.newsapp.ui.main.MainActivity
 import com.example.newsapp.ui.main.accounts.UserSharedPreference
-import java.util.*
 
 class SettingsFragment : Fragment() {
     private lateinit var profileBinding: FragmentSettingsBinding
@@ -90,14 +86,6 @@ class SettingsFragment : Fragment() {
             profileFavBtn.setOnClickListener {
                 viewPager.setCurrentItem(1, true)
             }
-
-//            french.setOnClickListener {
-//                localeChange("fr")
-//            }
-//            english.setOnClickListener {
-//                localeChange("en")
-//            }
-
         }
 
 
@@ -129,54 +117,6 @@ class SettingsFragment : Fragment() {
                 )
             }
         }
-    }
-
-
-    private fun localeChange(localeCode: String) {
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            val localeListToSet = LocaleList(Locale(localeCode))
-//            LocaleList.setDefault(localeListToSet)
-//            resources.configuration.setLocales(localeListToSet)
-//            resources.updateConfiguration(resources.configuration, resources.displayMetrics)
-//        }
-
-
-        val configuration = Configuration()
-        val locale = Locale(localeCode)
-        Locale.setDefault(locale)
-        configuration.setLocale(locale)
-        requireActivity().baseContext.createConfigurationContext(configuration)
-        val fragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            configuration.setLocale(locale)
-            val localeList = LocaleList(locale)
-            LocaleList.setDefault(localeList)
-            configuration.setLocales(localeList)
-            configuration.setLayoutDirection(locale)
-            requireActivity().baseContext.createConfigurationContext(configuration)
-
-
-        } else {
-            configuration.locale = locale
-            requireActivity().resources.updateConfiguration(
-                configuration,
-                resources.displayMetrics
-            )
-            fragmentTransaction.detach(this)
-            fragmentTransaction.attach(this)
-            fragmentTransaction.commit()
-        }
-
-
-//        requireActivity().baseContext.resources.updateConfiguration(
-//            configuration,
-//            requireActivity().baseContext.resources.displayMetrics
-//        )
-//        val refresh = Intent(requireActivity(), HomeScreenActivity::class.java)
-//        startActivity(refresh)
-
-
     }
 
     companion object {
