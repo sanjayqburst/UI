@@ -8,13 +8,11 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/news_card_recycler"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:cardPreventCornerOverlap="false"
-        app:cardElevation="10dp"
-        android:elevation="20dp"
+        app:cardElevation="5dp"
         android:backgroundTint="#EDEEFB"
         app:cardCornerRadius="15dp">
 
