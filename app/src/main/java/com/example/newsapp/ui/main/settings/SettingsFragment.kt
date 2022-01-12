@@ -10,7 +10,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -22,6 +21,7 @@ import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentSettingsBinding
 import com.example.newsapp.ui.main.MainActivity
 import com.example.newsapp.ui.main.accounts.UserSharedPreference
+import com.google.android.material.card.MaterialCardView
 
 class SettingsFragment : Fragment() {
     private lateinit var profileBinding: FragmentSettingsBinding
@@ -104,7 +104,6 @@ class SettingsFragment : Fragment() {
             ) {
                 Log.d(TAG, "Permissions granted")
                 showAlert()
-//                result.launch(captureImage)
             } else {
                 Log.d(TAG, "Permission Denied")
                 ActivityCompat.requestPermissions(
@@ -130,13 +129,14 @@ class SettingsFragment : Fragment() {
         val profilePictureAlertBuilder =
             AlertDialog.Builder(requireContext()).setView(profilePictureAlertView).create()
         profilePictureAlertBuilder.show()
-        val camera = profilePictureAlertView.findViewById<ImageButton>(R.id.profilePhotoCamera)
+        val camera = profilePictureAlertView.findViewById<MaterialCardView>(R.id.profilePhotoCamera)
         camera.setOnClickListener {
 
             result.launch(captureImage)
             profilePictureAlertBuilder.dismiss()
         }
-        val gallery = profilePictureAlertView.findViewById<ImageButton>(R.id.profilePhotoGallery)
+        val gallery =
+            profilePictureAlertView.findViewById<MaterialCardView>(R.id.profilePhotoGallery)
         gallery.setOnClickListener {
             result.launch(selectImage)
             profilePictureAlertBuilder.dismiss()

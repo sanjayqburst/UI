@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.databinding.FragmentFavouritesBinding
 import com.example.newsapp.model.Article
@@ -87,12 +86,6 @@ class FavouritesFragment : Fragment() {
         favouritesBinding.apply {
             favoriteCardRecycler.layoutManager = LinearLayoutManager(requireContext())
             favoriteRecyclerAdapter = FavoriteRecyclerAdapter(requireContext(), arrayListOf())
-            favoriteCardRecycler.addItemDecoration(
-                DividerItemDecoration(
-                    favoriteCardRecycler.context,
-                    (favoriteCardRecycler.layoutManager as LinearLayoutManager).orientation
-                )
-            )
             favoriteCardRecycler.adapter = favoriteRecyclerAdapter
         }
     }

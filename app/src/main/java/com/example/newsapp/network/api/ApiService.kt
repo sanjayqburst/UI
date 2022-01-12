@@ -5,6 +5,7 @@ import com.example.newsapp.network.API_KEY
 import retrofit2.http.GET
 
 interface ApiService {
+    //    GET request for API call
     @GET("top-headlines?country=us&apiKey=$API_KEY")
     suspend fun newsApiData(): NewsData
 }

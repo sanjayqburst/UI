@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.databinding.FragmentNewsBinding
 import com.example.newsapp.model.Article
@@ -58,6 +57,7 @@ class NewsFragment : Fragment() {
             )
     }
 
+    // To observe news data
     private fun setupObservers() {
         newsViewModel.getNewsData().observe(this, Observer {
             it?.let { resource ->
@@ -90,12 +90,6 @@ class NewsFragment : Fragment() {
         newsBinding.apply {
             newsCardRecycler.layoutManager = LinearLayoutManager(requireContext())
             newsRecyclerAdapter = NewsRecyclerAdapter(requireContext(), arrayListOf())
-            newsCardRecycler.addItemDecoration(
-                DividerItemDecoration(
-                    newsCardRecycler.context,
-                    (newsCardRecycler.layoutManager as LinearLayoutManager).orientation
-                )
-            )
             newsCardRecycler.adapter = newsRecyclerAdapter
         }
     }

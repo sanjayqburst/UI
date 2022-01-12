@@ -3,6 +3,7 @@ package com.example.newsapp.network.api
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+// Singleton retrofit instance
 object RetrofitBuilder {
     private const val BASE_URL = "https://newsapi.org/v2/"
     private fun getRetrofit(): Retrofit {
