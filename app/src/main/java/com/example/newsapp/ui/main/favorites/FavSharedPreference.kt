@@ -10,11 +10,18 @@ class FavSharedPreference(context: Context) {
         userSharedPreference.getValue("username"),
         Context.MODE_PRIVATE
     )
+    private val editor = sharedPreference.edit()
 
     fun saveFav(key: String, value: Boolean) {
-        val editor = sharedPreference.edit()
         editor?.putBoolean(key, value)
         editor?.apply()
+    }
+    fun saveImageUri(key: String,value :String){
+        editor?.putString(key,value)
+        editor?.apply()
+    }
+    fun getValue(key: String): String {
+        return sharedPreference.getString("ProfileImage","ProfileImage").toString()
     }
 
     fun hasFav(key: String): Boolean {
