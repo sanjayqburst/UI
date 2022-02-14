@@ -73,7 +73,7 @@ class LoginFragment : Fragment() {
                         }
                     }
                 } else {
-                    Log.d("Msg", "Hello")
+                    Log.d("Msg", "Network Not available")
                 }
             }
 //      Changing fragment to signup

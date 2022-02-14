@@ -35,8 +35,12 @@
     <string name="email_already_exists">Email already exists</string>
     <string name="cnf_password_not_match">Confirm password do not match</string>
     <string name="enter_valid_email">Enter valid email</string>
-    <string name="english">English</string>
-    <string name="french">French</string>
-    <string name="camera">CAMERA</string>
-    <string name="gallery">GALLERY</string>
+
+    <string name="camera" translatable="false">CAMERA</string>
+    <string name="gallery" translatable="false">GALLERY</string>
+    <string name="profile_updated" translatable="false">Your profile picture has been updated \'n Tap to see.</string>
+    <string name="profile_updated_title" translatable="false">Profile picture updated</string>
+    <string name="data">data</string>
+    <string name="profile_update_error">cannot update profile picture</string>
+    <string name="dcim">DCIM</string>
 </resources>

@@ -1,14 +1,17 @@
 package com.example.newsapp.ui.main.settings
 
-import android.app.Activity
+import android.app.*
+import android.app.PendingIntent.*
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,33 +21,36 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentSettingsBinding
-import com.example.newsapp.network.FirebaseAuthUtil
 import com.example.newsapp.ui.main.MainActivity
 import com.example.newsapp.ui.main.accounts.UserSharedPreference
-import com.example.newsapp.ui.main.favorites.FavSharedPreference
+import com.example.newsapp.ui.main.favorites.ProfileImageSharedPreference
+import com.example.newsapp.ui.main.homescreen.HomeScreenActivity
 import com.google.android.material.card.MaterialCardView
-import java.io.ByteArrayOutputStream
+import com.google.android.material.snackbar.Snackbar
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
-import java.lang.Exception
 
 class SettingsFragment : Fragment() {
 
     private lateinit var profileBinding: FragmentSettingsBinding
-    private lateinit var favSharedPreference: FavSharedPreference
+    private lateinit var profileImageSharedPreference: ProfileImageSharedPreference
     private lateinit var sharedPreference: UserSharedPreference
     private lateinit var result: ActivityResultLauncher<Intent>
     private lateinit var captureImage: Intent
     private lateinit var selectImage: Intent
-    private lateinit var userName:String
+    private lateinit var userName: String
+    private lateinit var notificationManager: NotificationManager
+    private lateinit var notificationChannel: NotificationChannel
+    private lateinit var builder: Notification.Builder
+    private val channelId = "i.apps.notifications"
+    private val description = "News App"
 
     companion object {
         private const val TAG = "News App"
@@ -53,9 +59,11 @@ class SettingsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        favSharedPreference = FavSharedPreference(requireContext())
+        profileImageSharedPreference = ProfileImageSharedPreference(requireContext())
         profileBinding = FragmentSettingsBinding.inflate(layoutInflater)
         sharedPreference = UserSharedPreference(requireContext())
+        notificationManager =
+            requireActivity().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     }
 
     override fun onCreateView(
@@ -69,8 +77,8 @@ class SettingsFragment : Fragment() {
             requireActivity().finish()
         }
         userName = sharedPreference.getValue("username")
-        if (favSharedPreference.hasFav(KEY)) {
-            val imageUri = favSharedPreference.getValue(KEY)
+        if (profileImageSharedPreference.hasFav(KEY)) {
+            val imageUri = profileImageSharedPreference.getValue()
             try {
                 Glide.with(this).load(imageUri).diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true).centerCrop().into(profileBinding.profileImage)
@@ -88,19 +96,43 @@ class SettingsFragment : Fragment() {
         result =
             this.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
-                    if (result.data?.extras?.get("data") is Bitmap) {
-                        val bitMap = result.data?.extras?.get("data") as Bitmap
+                    if (result.data?.extras?.get(getString(R.string.data)) is Bitmap) {
+                        val bitMap = result.data?.extras?.get(getString(R.string.data)) as Bitmap
                         Glide.with(this).load(bitMap).centerCrop()
                             .into(profileBinding.profileImage)
                         val bitmapSaved = saveBitmap(bitMap)
+                        notifyIt(
+                            resources.getString(R.string.profile_updated_title),
+                            resources.getString(R.string.profile_updated),
+                            bitMap
+                        )
                         saveImagePreference(bitmapSaved.toString())
                     } else {
                         val uri = result.data?.data
                         Glide.with(this).load(uri).centerCrop().into(profileBinding.profileImage)
-                        saveImagePreference(uri.toString())
+                        if (uri!=null){
+                            val bitmap=getCapturedImage(uri)
+                            notifyIt(
+                                resources.getString(R.string.profile_updated_title),
+                                resources.getString(R.string.profile_updated),
+                                bitmap
+                            )
+                            saveImagePreference(uri.toString())
+                        }else{
+                            Snackbar.make(
+                                requireView(),
+                                getString(R.string.profile_update_error),
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                        }
+
                     }
                 } else {
-                    Log.d(TAG, "Error")
+                    Snackbar.make(
+                        requireView(),
+                        getString(R.string.profile_update_error),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                 }
             }
 
@@ -141,11 +173,26 @@ class SettingsFragment : Fragment() {
         }
     }
 
-    private fun saveImagePreference(uri: String) {
-        if (favSharedPreference.hasFav(KEY)) {
-            favSharedPreference.removeFav(KEY)
+    private fun getCapturedImage(selectedPhotoUri: Uri): Bitmap {
+        val bitmap = when {
+            Build.VERSION.SDK_INT < 28 -> MediaStore.Images.Media.getBitmap(
+                requireContext().contentResolver,
+                selectedPhotoUri
+            )
+            else -> {
+                val source =
+                    ImageDecoder.createSource(requireContext().contentResolver, selectedPhotoUri)
+                ImageDecoder.decodeBitmap(source)
+            }
         }
-        favSharedPreference.saveImageUri(KEY, uri)
+        return bitmap
+    }
+
+    private fun saveImagePreference(uri: String) {
+        if (profileImageSharedPreference.hasFav(KEY)) {
+            profileImageSharedPreference.removeFav(KEY)
+        }
+        profileImageSharedPreference.saveImageUri(KEY, uri)
     }
 
     private fun showAlert() {
@@ -168,11 +215,11 @@ class SettingsFragment : Fragment() {
     }
 
     private fun saveBitmap(bitmap: Bitmap): Uri? {
-        if (File(favSharedPreference.getValue(KEY)).exists()) {
-            File(favSharedPreference.getValue(KEY)).delete()
+        if (File(profileImageSharedPreference.getValue()).exists()) {
+            File(profileImageSharedPreference.getValue()).delete()
         }
         val wrapper = ContextWrapper(requireActivity().applicationContext)
-        var file = wrapper.getDir("DCIM", Context.MODE_PRIVATE)
+        var file = wrapper.getDir(getString(R.string.dcim), Context.MODE_PRIVATE)
         file = File(file, "$userName.jpg")
         try {
             val stream: OutputStream = FileOutputStream(file)
@@ -183,6 +230,29 @@ class SettingsFragment : Fragment() {
             Log.d(TAG, "${e.printStackTrace()}")
         }
         return Uri.parse(file.path)
+    }
+
+    private fun notifyIt(title: String, content: String, bitmap: Bitmap) {
+        val intent = Intent(requireContext(), HomeScreenActivity::class.java)
+        val pendingIntent = getActivity(requireContext(), 0, intent, FLAG_IMMUTABLE)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationChannel =
+                NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
+            notificationChannel.enableLights(true)
+            notificationChannel.lightColor = Color.GREEN
+            notificationChannel.enableVibration(false)
+            notificationManager.createNotificationChannel(notificationChannel)
+            builder = Notification.Builder(requireContext(), channelId)
+                .setContentTitle(title).setContentText(content)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setLargeIcon(bitmap)
+                .setContentIntent(pendingIntent)
+        } else {
+            builder = Notification.Builder(requireContext()).setContentTitle(title)
+                .setContentText(content).setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentIntent(pendingIntent)
+        }
+        notificationManager.notify(123, builder.build())
     }
 }
 
