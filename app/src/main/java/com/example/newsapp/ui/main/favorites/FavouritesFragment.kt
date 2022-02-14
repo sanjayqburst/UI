@@ -74,40 +74,37 @@ class FavouritesFragment : Fragment() {
         }
 
         favoriteRecyclerAdapter.onFavButtonChecked = { news ->
-            Log.d("Error", "Reached fragment")
-//            val hasFav=newsFavouriteViewModel.checkItemExists(news.url,user)
             try {
                 newsFavouriteViewModel.checkItemExists(news.url, user)
                     .observe(viewLifecycleOwner) { favourite ->
                         newsFavouriteViewModel.deleteFromFavourites(favourite!!)
-                        newsViewModel.getFavData(user).observe(viewLifecycleOwner) {
-                            it?.let { resource ->
-                                when (resource.status) {
-                                    Status.ERROR -> {
-                                        favouritesBinding.apply {
-                                            favoriteCardRecycler.visibility = View.VISIBLE
-                                            progressBarFav.visibility = View.GONE
-                                        }
-                                    }
-                                    Status.LOADING -> {
-                                        favouritesBinding.apply {
-                                            favoriteCardRecycler.visibility = View.GONE
-                                            progressBarFav.visibility = View.VISIBLE
-                                        }
-                                    }
-                                    Status.SUCCESS -> {
-                                        favouritesBinding.favoriteCardRecycler.visibility =
-                                            View.VISIBLE
-                                        favouritesBinding.progressBarFav.visibility = View.GONE
-                                        resource.data?.let { favData ->
-                                            updateData(newsData = favData)
+                    }
+                newsViewModel.getFavData(user).observe(this) {
+                    it?.let { resource ->
+                        when (resource.status) {
+                            Status.ERROR -> {
+                                favouritesBinding.apply {
+                                    favoriteCardRecycler.visibility = View.VISIBLE
+                                    progressBarFav.visibility = View.GONE
+                                }
+                            }
+                            Status.SUCCESS -> {
+                                favouritesBinding.favoriteCardRecycler.visibility = View.VISIBLE
+                                favouritesBinding.progressBarFav.visibility = View.GONE
+                                resource.data?.let { favData ->
+                                    updateData(newsData = favData)
 
-                                        }
-                                    }
+                                }
+                            }
+                            Status.LOADING -> {
+                                favouritesBinding.apply {
+                                    favoriteCardRecycler.visibility = View.GONE
+                                    progressBarFav.visibility = View.VISIBLE
                                 }
                             }
                         }
                     }
+                }
             } catch (e: Exception) {
                 Snackbar.make(requireView(), "Could not remove fragment", Snackbar.LENGTH_SHORT)
                     .show()
@@ -121,11 +118,14 @@ class FavouritesFragment : Fragment() {
 
     private fun setupViewModel() {
         val dao = NewsFavouritesDatabase.getInstance(requireContext()).newsFavouritesDao
-        newsViewModel =
-            ViewModelProvider(
+        try {
+            newsViewModel =ViewModelProvider(
                 this,
                 ViewModelFactory(ApiHelper(RetrofitBuilder.apiService), dao)
             )[NewsViewModel::class.java]
+        }catch (e:Exception){
+            Log.e("Error","error ${e.localizedMessage}")
+        }
         val repository = NewsFavouriteRepository(dao)
         val factory = NewsFavouritesViewModelFactory(user, repository)
         newsFavouriteViewModel =

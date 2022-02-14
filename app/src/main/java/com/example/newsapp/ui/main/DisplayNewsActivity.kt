@@ -23,6 +23,7 @@ class DisplayNewsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        userSharedPreference = UserSharedPreference(this)
         val user = userSharedPreference.getValue("username")
 
         val dao = NewsFavouritesDatabase.getInstance(this).newsFavouritesDao
@@ -37,7 +38,6 @@ class DisplayNewsActivity : AppCompatActivity() {
             ViewModelProvider(this, factory)[NewsFavouriteViewModel::class.java]
 
         displayNewsBinding = ActivityDisplayNewsBinding.inflate(layoutInflater)
-        userSharedPreference = UserSharedPreference(this)
 
         setContentView(displayNewsBinding.root)
         val bundle = intent.extras

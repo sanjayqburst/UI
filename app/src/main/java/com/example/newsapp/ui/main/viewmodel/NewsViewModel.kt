@@ -12,6 +12,7 @@ class NewsViewModel(private val newsRepository: NewsRepository):ViewModel(){
     fun getNewsData(): LiveData<Resource<NewsData?>> {
         return newsRepository.getNewsData()
     }
+
     fun getFavData(uId:String): LiveData<Resource<ArrayList<Article>>> {
         return newsRepository.getFavData(uId)
     }

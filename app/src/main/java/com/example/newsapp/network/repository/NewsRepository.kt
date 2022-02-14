@@ -24,7 +24,6 @@ class NewsRepository(
     }
 
     fun getFavData(uid: String) = liveData(Dispatchers.IO) {
-        emit(Resource.loading(data = null))
         try {
             val articleArray = arrayListOf<Article>()
             val data = apiHelper.getNewsData()

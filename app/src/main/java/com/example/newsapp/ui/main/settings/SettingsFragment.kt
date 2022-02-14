@@ -33,6 +33,7 @@ import com.example.newsapp.ui.main.favorites.ProfileImageSharedPreference
 import com.example.newsapp.ui.main.homescreen.HomeScreenActivity
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.snackbar.Snackbar
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
@@ -106,7 +107,15 @@ class SettingsFragment : Fragment() {
                             resources.getString(R.string.profile_updated),
                             bitMap
                         )
-                        saveImagePreference(bitmapSaved.toString())
+                        if (bitmapSaved!=null){
+                            saveImagePreference(bitmapSaved.toString())
+                        }else{
+                            Snackbar.make(
+                                requireView(),
+                                getString(R.string.profile_update_error),
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                        }
                     } else {
                         val uri = result.data?.data
                         Glide.with(this).load(uri).centerCrop().into(profileBinding.profileImage)
@@ -215,21 +224,24 @@ class SettingsFragment : Fragment() {
     }
 
     private fun saveBitmap(bitmap: Bitmap): Uri? {
+        return try {
         if (File(profileImageSharedPreference.getValue()).exists()) {
             File(profileImageSharedPreference.getValue()).delete()
         }
         val wrapper = ContextWrapper(requireActivity().applicationContext)
         var file = wrapper.getDir(getString(R.string.dcim), Context.MODE_PRIVATE)
         file = File(file, "$userName.jpg")
-        try {
+
             val stream: OutputStream = FileOutputStream(file)
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
             stream.flush()
             stream.close()
+            Uri.parse(file.path)
         } catch (e: Exception) {
             Log.d(TAG, "${e.printStackTrace()}")
+            null
         }
-        return Uri.parse(file.path)
+
     }
 
     private fun notifyIt(title: String, content: String, bitmap: Bitmap) {
