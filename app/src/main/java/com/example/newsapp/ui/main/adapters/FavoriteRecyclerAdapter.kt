@@ -17,9 +17,10 @@ import com.example.newsapp.model.Article
 import com.example.newsapp.ui.main.DisplayNewsActivity
 
 // Adapter for favourites recycler view
-class FavoriteRecyclerAdapter(val context: Context, private var dataArray: ArrayList<Article>) :
+class FavoriteRecyclerAdapter(private var dataArray: ArrayList<Article>) :
     RecyclerView.Adapter<FavoriteRecyclerAdapter.ViewHolder>() {
     var onFavButtonChecked: ((Article) -> Unit)? = null
+    var onCardClick: ((Article) -> Unit)? = null
 
     // View holder for adapter
     inner class ViewHolder(cardView: View) : RecyclerView.ViewHolder(cardView) {
@@ -42,31 +43,26 @@ class FavoriteRecyclerAdapter(val context: Context, private var dataArray: Array
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 //        Image loading with glide library
-        Glide.with(holder.itemView.context).load(dataArray[position].urlToImage).into(holder.titleImage)
+        Glide.with(holder.itemView.context).load(dataArray[position].urlToImage)
+            .into(holder.titleImage)
 
 //        Assigning corresponding values to view holder
         val str =
-            "${dataArray[position].description}... \n \n  " + context.getString(R.string.read_more)
+            "${dataArray[position].title}... \n \n  " + holder.itemView.context.getString(R.string.read_more)
         holder.briefDesc.text = str
         holder.favButton.setImageResource(R.drawable.favorite)
         holder.newsTime.text = dataArray[position].publishedAt
 
 //        On news card click event
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, DisplayNewsActivity::class.java)
-            val bundle = Bundle()
-            bundle.putParcelable("NewsData", dataArray[position])
-            intent.putExtras(bundle)
-            context.startActivity(intent)
+            it.let { onCardClick?.invoke(dataArray[position]) }
         }
 
-//        TODO:Move click as call back
 //        On favourite button click event
         holder.favButton.setOnClickListener {
             it.let { onFavButtonChecked?.invoke(dataArray[position]) }
         }
     }
-
 
     fun addNews(newsData: List<Article>) {
         this.dataArray.apply {

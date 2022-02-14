@@ -1,5 +1,6 @@
 package com.example.newsapp.ui.main.favorites
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ import com.example.newsapp.network.ConnectivityStatus
 import com.example.newsapp.network.api.ApiHelper
 import com.example.newsapp.network.api.RetrofitBuilder
 import com.example.newsapp.ui.base.ViewModelFactory
+import com.example.newsapp.ui.main.DisplayNewsActivity
 import com.example.newsapp.ui.main.accounts.UserSharedPreference
 import com.example.newsapp.ui.main.adapters.FavoriteRecyclerAdapter
 import com.example.newsapp.ui.main.viewmodel.NewsViewModel
@@ -63,6 +65,13 @@ class FavouritesFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        favoriteRecyclerAdapter.onCardClick = {
+            val intent = Intent(context, DisplayNewsActivity::class.java)
+            val bundle = Bundle()
+            bundle.putParcelable("NewsData", it)
+            intent.putExtras(bundle)
+            requireContext().startActivity(intent)
+        }
 
         favoriteRecyclerAdapter.onFavButtonChecked = { news ->
             Log.d("Error", "Reached fragment")
@@ -157,7 +166,7 @@ class FavouritesFragment : Fragment() {
             favoriteCardRecycler.visibility = View.VISIBLE
             progressBarFav.visibility = View.VISIBLE
             favoriteCardRecycler.layoutManager = LinearLayoutManager(requireContext())
-            favoriteRecyclerAdapter = FavoriteRecyclerAdapter(requireContext(), arrayListOf())
+            favoriteRecyclerAdapter = FavoriteRecyclerAdapter(arrayListOf())
             favoriteCardRecycler.adapter = favoriteRecyclerAdapter
         }
     }

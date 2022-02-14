@@ -1,5 +1,7 @@
 package com.example.newsapp.ui.main.news
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +17,8 @@ import com.example.newsapp.network.ConnectivityStatus
 import com.example.newsapp.network.api.ApiHelper
 import com.example.newsapp.network.api.RetrofitBuilder
 import com.example.newsapp.ui.base.ViewModelFactory
+import com.example.newsapp.ui.main.DisplayNewsActivity
+import com.example.newsapp.ui.main.accounts.UserSharedPreference
 import com.example.newsapp.ui.main.adapters.NewsRecyclerAdapter
 import com.example.newsapp.ui.main.viewmodel.NewsViewModel
 import com.example.newsapp.utils.Status.*
@@ -27,14 +31,17 @@ class NewsFragment : Fragment() {
     private lateinit var newsViewModel: NewsViewModel
     private lateinit var newsRecyclerAdapter: NewsRecyclerAdapter
     private lateinit var newsFavouriteViewModel: NewsFavouriteViewModel
-
+    private lateinit var userSharedPreferences: UserSharedPreference
     private lateinit var newsBinding: FragmentNewsBinding
+    private lateinit var user:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         newsBinding = FragmentNewsBinding.inflate(layoutInflater)
         setupViewModel()
-        newsRecyclerAdapter = NewsRecyclerAdapter(requireContext(), arrayListOf())
+        userSharedPreferences= UserSharedPreference(requireContext())
+        user=userSharedPreferences.getValue("username")
+        newsRecyclerAdapter = NewsRecyclerAdapter(arrayListOf())
     }
 
     override fun onCreateView(
@@ -64,8 +71,15 @@ class NewsFragment : Fragment() {
             newsDate.text = Date().getDateOrDay("dd MMM yyyy")
             newsDay.text = Date().getDateOrDay("EEEE")
         }
+        newsRecyclerAdapter.onCardClick={
+            val intent = Intent(context, DisplayNewsActivity::class.java)
+            val bundle = Bundle()
+            bundle.putParcelable("NewsData", it)
+            intent.putExtras(bundle)
+            requireContext().startActivity(intent)
+        }
 
-        newsRecyclerAdapter.onFavButtonChecked = { news, user ->
+        newsRecyclerAdapter.onFavButtonChecked = { news ->
             newsFavouriteViewModel.checkItemExists(news.url, user)
                 .observe(viewLifecycleOwner) { favourite ->
                     if (favourite == null) {

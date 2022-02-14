@@ -1,8 +1,5 @@
 package com.example.newsapp.ui.main.adapters
 
-import android.content.Context
-import android.content.Intent
-import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,24 +12,20 @@ import com.bumptech.glide.Glide
 import com.example.newsapp.R
 import com.example.newsapp.db.NewsFavourites
 import com.example.newsapp.model.Article
-import com.example.newsapp.ui.main.DisplayNewsActivity
 import com.example.newsapp.ui.main.accounts.UserSharedPreference
 
 // Adapter for News fragment recycler view
-
 class NewsRecyclerAdapter(
-    private val context: Context,
     private val dataArray: ArrayList<Article>
 ) : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolder>() {
 
 
     //    Creating instance of sharedPreference
-//    private val favSharedPreference = FavSharedPreference(context)
-    private val userSharedPreference = UserSharedPreference(context)
-
+    private lateinit var userSharedPreference: UserSharedPreference
     private var newsFavourites = ArrayList<NewsFavourites>()
 
-    var onFavButtonChecked: ((Article, String) -> Unit)? = null
+    var onFavButtonChecked: ((Article) -> Unit)? = null
+    var onCardClick: ((Article) -> Unit)? = null
 
     //    Creating view holder for adapter
     inner class ViewHolder(cardView: View) : RecyclerView.ViewHolder(cardView) {
@@ -51,7 +44,8 @@ class NewsRecyclerAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 //        Loading image with glide library
-        Glide.with(context).load(dataArray[position].urlToImage).centerCrop()
+        userSharedPreference = UserSharedPreference(holder.itemView.context)
+        Glide.with(holder.itemView.context).load(dataArray[position].urlToImage).centerCrop()
             .into(holder.titleImage)
 //        Assigning values to view holder
         holder.briefDesc.text = dataArray[position].title
@@ -70,19 +64,13 @@ class NewsRecyclerAdapter(
             holder.favButton.setImageResource(R.drawable.favorite_border)
         }
         holder.favButton.setOnClickListener {
-            val user = userSharedPreference.getValue("username")
             val news = dataArray[position]
-            news.let { onFavButtonChecked?.invoke(it, user) }
+            news.let { onFavButtonChecked?.invoke(it) }
         }
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, DisplayNewsActivity::class.java)
-            val bundle = Bundle()
-            bundle.putParcelable("NewsData", dataArray[position])
-            intent.putExtras(bundle)
-            context.startActivity(intent)
+            it.let { onCardClick?.invoke(dataArray[position]) }
         }
-//        TODO: move with callback fun
     }
 
     override fun getItemCount(): Int {
