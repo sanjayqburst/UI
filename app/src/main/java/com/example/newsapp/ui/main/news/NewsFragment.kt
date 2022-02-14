@@ -38,9 +38,11 @@ class NewsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         newsBinding = FragmentNewsBinding.inflate(layoutInflater)
-        setupViewModel()
         userSharedPreferences= UserSharedPreference(requireContext())
+
         user=userSharedPreferences.getValue("username")
+
+        setupViewModel()
         newsRecyclerAdapter = NewsRecyclerAdapter(arrayListOf())
     }
 
@@ -102,7 +104,7 @@ class NewsFragment : Fragment() {
                 ViewModelFactory(ApiHelper(RetrofitBuilder.apiService), dao)
             )[NewsViewModel::class.java]
         val repository = NewsFavouriteRepository(dao)
-        val factory = NewsFavouritesViewModelFactory(requireContext(), repository)
+        val factory = NewsFavouritesViewModelFactory(user, repository)
         newsFavouriteViewModel =
             ViewModelProvider(this, factory)[NewsFavouriteViewModel::class.java]
 

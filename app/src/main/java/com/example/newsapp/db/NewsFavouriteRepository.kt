@@ -18,7 +18,6 @@ class NewsFavouriteRepository(private val newsFavouritesDao: NewsFavouritesDao) 
     suspend fun delete() = newsFavouritesDao.delete()
 
     suspend fun checkItemExists(link: String, uId: String): NewsFavourites {
-        Log.d("Error", "${newsFavouritesDao.checkItemExists(link, uId)}")
         return newsFavouritesDao.checkItemExists(link, uId)
     }
 

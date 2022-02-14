@@ -9,17 +9,10 @@ import com.example.newsapp.ui.main.accounts.UserSharedPreference
 import kotlinx.coroutines.launch
 
 class NewsFavouriteViewModel(
-    context: Context,
+    private val user: String,
     private val newsFavouriteRepository: NewsFavouriteRepository
 ) : ViewModel() {
-    private var favouritesLiveData: LiveData<List<NewsFavourites>>
-
-    private var user = UserSharedPreference(context.applicationContext).getValue("username")
-
-    init {
-        favouritesLiveData = newsFavouriteRepository.getFavourites(user)
-    }
-
+    private var favouritesLiveData: LiveData<List<NewsFavourites>> = newsFavouriteRepository.getFavourites(user)
 
 
     fun getFavorites(): LiveData<List<NewsFavourites>> {

@@ -6,12 +6,12 @@ import androidx.lifecycle.ViewModelProvider
 import java.lang.IllegalArgumentException
 
 class NewsFavouritesViewModelFactory(
-    val context: Context,
+    val user: String,
     private val newsFavouriteRepository: NewsFavouriteRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(NewsFavouriteViewModel::class.java)) {
-            return NewsFavouriteViewModel(context = context, newsFavouriteRepository) as T
+            return NewsFavouriteViewModel(user, newsFavouriteRepository) as T
         }
         throw IllegalArgumentException("Unknown View model class")
     }

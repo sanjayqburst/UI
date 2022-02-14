@@ -127,7 +127,7 @@ class FavouritesFragment : Fragment() {
                 ViewModelFactory(ApiHelper(RetrofitBuilder.apiService), dao)
             )[NewsViewModel::class.java]
         val repository = NewsFavouriteRepository(dao)
-        val factory = NewsFavouritesViewModelFactory(requireContext(), repository)
+        val factory = NewsFavouritesViewModelFactory(user, repository)
         newsFavouriteViewModel =
             ViewModelProvider(requireActivity(), factory)[NewsFavouriteViewModel::class.java]
     }

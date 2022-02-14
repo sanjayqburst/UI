@@ -14,6 +14,7 @@ abstract class NewsFavouritesDatabase : RoomDatabase() {
 
         @Volatile
         private var INSTANCE: NewsFavouritesDatabase? = null
+
         fun getInstance(context: Context): NewsFavouritesDatabase {
             synchronized(this) {
                 var instance = INSTANCE

@@ -23,6 +23,7 @@ class DisplayNewsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val user = userSharedPreference.getValue("username")
 
         val dao = NewsFavouritesDatabase.getInstance(this).newsFavouritesDao
         newsViewModel =
@@ -31,13 +32,12 @@ class DisplayNewsActivity : AppCompatActivity() {
                 ViewModelFactory(ApiHelper(RetrofitBuilder.apiService), dao)
             )[NewsViewModel::class.java]
         val repository = NewsFavouriteRepository(dao)
-        val factory = NewsFavouritesViewModelFactory(this, repository)
+        val factory = NewsFavouritesViewModelFactory(user, repository)
         newsFavouriteViewModel =
             ViewModelProvider(this, factory)[NewsFavouriteViewModel::class.java]
 
         displayNewsBinding = ActivityDisplayNewsBinding.inflate(layoutInflater)
         userSharedPreference = UserSharedPreference(this)
-        val user = userSharedPreference.getValue("username")
 
         setContentView(displayNewsBinding.root)
         val bundle = intent.extras

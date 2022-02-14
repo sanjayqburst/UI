@@ -63,6 +63,7 @@ class NewsRecyclerAdapter(
         } else {
             holder.favButton.setImageResource(R.drawable.favorite_border)
         }
+
         holder.favButton.setOnClickListener {
             val news = dataArray[position]
             news.let { onFavButtonChecked?.invoke(it) }
