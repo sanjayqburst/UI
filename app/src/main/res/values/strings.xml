@@ -40,7 +40,7 @@
     <string name="gallery" translatable="false">GALLERY</string>
     <string name="profile_updated" translatable="false">Your profile picture has been updated \'n Tap to see.</string>
     <string name="profile_updated_title" translatable="false">Profile picture updated</string>
-    <string name="data">data</string>
-    <string name="profile_update_error">cannot update profile picture</string>
-    <string name="dcim">DCIM</string>
+    <string name="data" translatable="false">data</string>
+    <string name="profile_update_error" translatable="false">cannot update profile picture</string>
+    <string name="dcim" translatable="false">DCIM</string>
 </resources>
